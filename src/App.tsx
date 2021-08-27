@@ -1,19 +1,13 @@
-import styled from 'styled-components';
-import SignIn from './views/SignIn/SignIn';
+import styled, { ThemeProvider } from 'styled-components';
+import { theme } from '@theme/theme';
+import GlobalStyle from './globalStyle';
 
-const Wrapper = styled.div`
-  margin: 0;
-  padding: 0;
-  background-color: darkgrey;
-  width: 100%;
-  height: 99vh;
-  border: none;
-`;
 function App() {
   return (
-    <Wrapper>
-      <SignIn />
-    </Wrapper>
+    <ThemeProvider theme={theme}>
+      <GlobalStyle />
+      <h1>siema</h1>
+    </ThemeProvider>
   );
 }
 
