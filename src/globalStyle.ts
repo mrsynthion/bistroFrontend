@@ -4,6 +4,7 @@ export default createGlobalStyle`
 *,*::before,*::after{
     box-sizing: border-box;
     font-family:'Lora','Monaco',sans-serif;
+    font-size:16px;
 }
 body{
     margin:0;
