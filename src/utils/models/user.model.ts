@@ -8,6 +8,6 @@ export interface User {
     userAdressHomeNumber:string,
     userPhoneNumber?:string,
     userUserName:string,
-    userPassword:string,
+    userPassword?:string,
     userType:string
 }
