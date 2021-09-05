@@ -1,4 +1,4 @@
-import { User } from '@src/utils/models/user.model';
+import { useAuth } from '@src/services/hooks/useAuth';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
@@ -11,11 +11,8 @@ import {
   StyledWrapper,
 } from './Header.styled';
 
-interface HeaderProps {
-  user?: User;
-}
-
-const Header: React.FC<HeaderProps> = ({ user }) => {
+const Header: React.FC = () => {
+  const auth = useAuth();
   return (
     <HeaderWrapper>
       <StyledWrapper>
@@ -23,15 +20,20 @@ const Header: React.FC<HeaderProps> = ({ user }) => {
           B
         </StyledLogo>
 
-        {user ? (
+        {auth.user ? (
           <StyledIconsWrapper>
             <StyledI className="pi pi-shopping-cart">
               <StyledIText>Koszyk</StyledIText>
             </StyledI>
-            <StyledI className="pi pi-user">
-              <StyledIText>{user?.userUserName}</StyledIText>
+            <StyledI as={NavLink} to="/user" className="pi pi-user">
+              <StyledIText>{auth.user.userUserName}</StyledIText>
             </StyledI>
-            <StyledI className="pi pi-sign-out">
+            <StyledI
+              as={NavLink}
+              to="/"
+              onClick={() => auth.signOut()}
+              className="pi pi-sign-out"
+            >
               <StyledIText>Wyloguj się</StyledIText>
             </StyledI>
           </StyledIconsWrapper>

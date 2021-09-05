@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const HeaderWrapper = styled.header`
 width:100%;
 height:60px;
-background-color: var(--orange-500);
+background-color: var(--orange-700);
 margin:0;
 position: fixed;
 top:0;
@@ -48,7 +48,7 @@ export const StyledIconsWrapper = styled.div`
 
 `
 export const StyledI = styled.i`
-
+text-decoration: none;
 height:100%;
 margin-left:20px;
 font-size:${({theme})=>theme.font.size.h4};
