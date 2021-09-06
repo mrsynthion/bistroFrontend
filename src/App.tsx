@@ -1,4 +1,3 @@
-import AppProviders from './utils/providers/AppProviders';
 import { Route, Switch } from 'react-router-dom';
 import Root from './views/root/Root';
 import Header from './components/header/Header';
@@ -13,7 +12,7 @@ function App() {
   return (
     <>
       <Header />
-      <Navbar />
+
       <Wrapper>
         <Switch>
           <Route exact path="/" component={Root}></Route>

@@ -1,26 +1,29 @@
 import { api } from '@src/utils/axios/axios.interceptor';
-import { User } from '@src/utils/models/user.model';
 import React, { useState, useEffect, createContext } from 'react';
 import { useContext } from 'react';
 import { Redirect } from 'react-router';
 const path = '/users';
 
 interface context {
-  user: User | null;
+  userName: string | null;
   signIn: (login: string, password: string) => void;
   signOut: () => void;
 }
 const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }: any) => {
-  const [user, setUser] = useState<User | null>(null);
-  const signIn = async (login: string, password: string) => {
+  const [userName, setUserName] = useState(null);
+  const signIn = async (userUsername: string, userPassword: string) => {
     try {
-      const response: User = await api.post(`${path}/login`, {
-        login,
-        password,
+      const response: any = await api.post(`${path}/login`, {
+        userUsername,
+        userPassword,
       });
-      setUser(response);
+      const userName = response.data;
+      if (userName) {
+        setUserName(userName);
+        window.localStorage.setItem('userName', JSON.stringify(userName));
+      }
     } catch (e) {
       console.log('Niepoprawne dane logowania', e);
     }
@@ -29,7 +32,8 @@ export const AuthProvider = ({ children }: any) => {
     try {
       const response = await api.post(`${path}/logout`);
       if (response.status === 200) {
-        setUser(null);
+        window.localStorage.removeItem('userName');
+        setUserName(null);
         return <Redirect to="/" />;
       }
     } catch (e) {
@@ -38,7 +42,7 @@ export const AuthProvider = ({ children }: any) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, signIn, signOut }}>
+    <AuthContext.Provider value={{ userName, signIn, signOut }}>
       {children}
     </AuthContext.Provider>
   );
