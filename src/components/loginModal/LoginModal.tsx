@@ -37,14 +37,15 @@ const LoginModal: React.FC<{ isOpen: boolean }> = ({ isOpen }) => {
   };
   useEffect(() => {
     const { userUsername, userPassword } = formData;
-
-    auth.signIn(userUsername, userPassword);
+    if (userUsername && userPassword) {
+      auth.signIn(userUsername, userPassword);
+    }
   }, [formData]);
 
   return (
-    <StyledLoginModalWrapper isOpen={isOpen}>
+    <StyledLoginModalWrapper id="loginModal" isOpen={isOpen}>
       <form onSubmit={handleSubmit(onSubmit)} className="p-fluid">
-        <div className="p-field">
+        <div className="p-field" style={{ marginBottom: '2rem' }}>
           <span className="p-float-label">
             <Controller
               name="userUsername"
@@ -67,9 +68,9 @@ const LoginModal: React.FC<{ isOpen: boolean }> = ({ isOpen }) => {
             </label>
           </span>
         </div>
-        <Divider />
+
         <div className="p-field">
-          <span className="p-float-label">
+          <span className="p-float-label ">
             <Controller
               name="userPassword"
               control={control}
@@ -80,13 +81,18 @@ const LoginModal: React.FC<{ isOpen: boolean }> = ({ isOpen }) => {
                   id={field.name}
                   {...field}
                   toggleMask
-                  className={classNames({ 'p-invalid': fieldState.invalid })}
+                  className={classNames({
+                    'p-invalid': fieldState.invalid,
+                  })}
                 />
               )}
             />
             <label
               htmlFor="userPassword"
-              className={classNames({ 'p-error': errors.userPassword })}
+              className={classNames({
+                'p-text-secondary': !errors.userPassword,
+                'p-error': errors.userPassword,
+              })}
             >
               Hasło*
             </label>

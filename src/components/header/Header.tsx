@@ -1,5 +1,5 @@
+import React, { useEffect } from 'react';
 import { useAuth } from '@src/services/hooks/useAuth';
-import React from 'react';
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import LoginModal from '../loginModal/LoginModal';
@@ -17,6 +17,25 @@ import {
 const Header: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const auth = useAuth();
+  const handleDocumentClick = (e: any) => {
+    const isClosest = e.target.closest('#loginModal');
+    const targetId = e.target.id;
+    if (isClosest == null && targetId.toString() !== 'loginButton') {
+      setIsOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('click', handleDocumentClick);
+
+    return () => document.removeEventListener('click', handleDocumentClick);
+  }, []);
+
+  useEffect(() => {
+    if (auth.userName) {
+      setIsOpen(false);
+    }
+  }, [auth]);
   return (
     <>
       <HeaderWrapper>
@@ -48,10 +67,11 @@ const Header: React.FC = () => {
                 <StyledIText>Koszyk</StyledIText>
               </StyledI>
               <StyledI
+                id="loginButton"
                 className="pi pi-sign-in"
                 onClick={() => setIsOpen(!isOpen)}
               >
-                <StyledIText>Zaloguj się</StyledIText>
+                <StyledIText id="loginButton">Zaloguj się</StyledIText>
               </StyledI>
               <LoginModal isOpen={isOpen} />
             </StyledIconsWrapper>

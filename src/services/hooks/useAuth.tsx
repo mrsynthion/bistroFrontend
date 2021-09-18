@@ -1,5 +1,5 @@
 import { api } from '@src/utils/axios/axios.interceptor';
-import React, { useState, useEffect, createContext } from 'react';
+import { useState, createContext } from 'react';
 import { useContext } from 'react';
 import { Redirect } from 'react-router';
 const path = '/users';

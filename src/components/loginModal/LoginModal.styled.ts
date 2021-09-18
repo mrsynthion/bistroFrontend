@@ -16,3 +16,5 @@ export const StyledLoginModalWrapper = styled.div<{isOpen:boolean}>`
     align-items: center;
 
 `
+
+
