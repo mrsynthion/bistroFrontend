@@ -6,5 +6,5 @@ height:60px;
 background-color:var(--orange-500);
 position:fixed;
 top:60px;
-
+z-index:2;
 `

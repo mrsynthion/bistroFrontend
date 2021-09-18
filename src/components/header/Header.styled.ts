@@ -16,11 +16,12 @@ top:0;
 export const StyledWrapper = styled.div`
 width:80%;
 height:100%;
-margin:auto;
+margin: auto;
 display: flex;
 flex-direction: row;
 justify-content: space-between;
 align-items: center;
+position:relative;
 `
 
 export const StyledLogo = styled.div`
@@ -45,6 +46,7 @@ export const StyledIconsWrapper = styled.div`
     align-items: center;
     max-width:50%;
     width: fit-content;
+    position:relative;
 
 `
 export const StyledI = styled.i`

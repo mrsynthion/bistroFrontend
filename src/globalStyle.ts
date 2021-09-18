@@ -1,6 +1,9 @@
 import { createGlobalStyle } from "styled-components";
 
 export default createGlobalStyle`
+:root{
+    --text-color-secondary:black
+}
 *,*::before,*::after{
     box-sizing: border-box;
 
