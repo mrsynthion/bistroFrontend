@@ -1,9 +1,12 @@
+import Header from '@src/components/header/Header';
+import Navbar from '@src/components/navbar/Navbar';
 import React from 'react';
 
 const Root: React.FC = () => {
   return (
     <>
-      <h1>siema</h1>
+      <Header />
+      <Navbar />
     </>
   );
 };
