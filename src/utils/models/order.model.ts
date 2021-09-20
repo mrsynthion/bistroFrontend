@@ -1,4 +1,4 @@
-export interface Order {
+export interface OrderModel {
     orderUserUsername:string,
     orderMenuItemsId: Array<number>,
     orderTotalPrice:number,

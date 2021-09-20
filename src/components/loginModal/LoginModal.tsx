@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyledLoginModalWrapper } from './LoginModal.styled';
+import { StyledLoginModalWrapper, StyledParagraph } from './LoginModal.styled';
 import { useForm, Controller } from 'react-hook-form';
 import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
@@ -14,7 +14,10 @@ type FormValues = {
   userUsername: string;
   userPassword: string;
 };
-const LoginModal: React.FC<{ isOpen: boolean }> = ({ isOpen }) => {
+const LoginModal: React.FC<{
+  isOpen: boolean;
+  error?: { message?: string } | null;
+}> = ({ isOpen, error }) => {
   const [formData, setFormData] = useState<FormValues>({
     userUsername: '',
     userPassword: '',
@@ -40,7 +43,7 @@ const LoginModal: React.FC<{ isOpen: boolean }> = ({ isOpen }) => {
     if (userUsername && userPassword) {
       auth.signIn(userUsername, userPassword);
     }
-  }, [formData]);
+  }, [formData, auth]);
 
   return (
     <StyledLoginModalWrapper id="loginModal" isOpen={isOpen}>
@@ -62,7 +65,9 @@ const LoginModal: React.FC<{ isOpen: boolean }> = ({ isOpen }) => {
             />
             <label
               htmlFor="username"
-              className={classNames({ 'p-error': errors.userUsername })}
+              className={classNames({
+                'p-error': errors.userUsername || error?.message,
+              })}
             >
               Nazwa uzytkownika*
             </label>
@@ -91,7 +96,7 @@ const LoginModal: React.FC<{ isOpen: boolean }> = ({ isOpen }) => {
               htmlFor="userPassword"
               className={classNames({
                 'p-text-secondary': !errors.userPassword,
-                'p-error': errors.userPassword,
+                'p-error': errors.userPassword || error,
               })}
             >
               Hasło*
@@ -101,6 +106,8 @@ const LoginModal: React.FC<{ isOpen: boolean }> = ({ isOpen }) => {
         <Divider />
         <Button type="submit" label="Zaloguj" className="p-mt-2" />
       </form>
+
+      <StyledParagraph>{error ? error.message : ''}</StyledParagraph>
     </StyledLoginModalWrapper>
   );
 };

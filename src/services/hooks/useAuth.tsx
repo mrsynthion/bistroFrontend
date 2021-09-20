@@ -5,6 +5,7 @@ import { Redirect } from 'react-router';
 const path = '/users';
 
 interface context {
+  loginError?: { message: string } | null;
   userName: string | null;
   signIn: (login: string, password: string) => void;
   signOut: () => void;
@@ -13,19 +14,24 @@ const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }: any) => {
   const [userName, setUserName] = useState(null);
+  const [loginError, setLoginError] = useState(undefined);
   const signIn = async (userUsername: string, userPassword: string) => {
     try {
       const response: any = await api.post(`${path}/login`, {
         userUsername,
         userPassword,
       });
-      const userName = response.data;
+
+      const { userName } = response.data;
       if (userName) {
         setUserName(userName);
         window.localStorage.setItem('userName', JSON.stringify(userName));
       }
-    } catch (e) {
-      console.log('Niepoprawne dane logowania', e);
+    } catch (err: any) {
+      const { response } = err;
+      if ((response.status = 401)) {
+        setLoginError(response.data);
+      }
     }
   };
   const signOut = async () => {
@@ -42,7 +48,7 @@ export const AuthProvider = ({ children }: any) => {
   };
 
   return (
-    <AuthContext.Provider value={{ userName, signIn, signOut }}>
+    <AuthContext.Provider value={{ loginError, userName, signIn, signOut }}>
       {children}
     </AuthContext.Provider>
   );

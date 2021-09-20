@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const HeaderWrapper = styled.header`
 width:100%;
 height:60px;
-background-color: var(--orange-700);
+background-color: var(--orange-500);
 margin:0;
 position: fixed;
 top:0;
@@ -31,7 +31,7 @@ export const StyledLogo = styled.div`
     height:100%;
     margin:10px;
     padding:10px;
-    color:var(--orange-300);
+    color:var(--orange-200);
     font-size: ${({theme})=>theme.font.size.h2};
     text-align: center;
     display: flex;
@@ -54,7 +54,7 @@ text-decoration: none;
 height:100%;
 margin-left:20px;
 font-size:${({theme})=>theme.font.size.h4};
-color:var(--orange-300);
+color:var(--orange-200);
 cursor: pointer;
 display:flex;
 flex-direction: column;
@@ -70,3 +70,4 @@ max-width:100%;
 padding:0;
 margin:0;
 `
+
