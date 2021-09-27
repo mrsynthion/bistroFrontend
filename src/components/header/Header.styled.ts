@@ -1,18 +1,7 @@
+import { IconButton } from '@mui/material';
 import styled from 'styled-components';
 
-export const HeaderWrapper = styled.header`
-width:100%;
-height:60px;
-background-color: var(--orange-500);
-margin:0;
-position: fixed;
-top:0;
 
-
-@media(max-width:576px){
-    height:50px;
-}
-`
 export const StyledWrapper = styled.div`
 width:80%;
 height:100%;
@@ -31,7 +20,6 @@ export const StyledLogo = styled.div`
     height:100%;
     margin:10px;
     padding:10px;
-    color:var(--orange-200);
     font-size: ${({theme})=>theme.font.size.h2};
     text-align: center;
     display: flex;
@@ -49,23 +37,29 @@ export const StyledIconsWrapper = styled.div`
     position:relative;
 
 `
-export const StyledI = styled.i`
+export const StyledIconWrapper = styled(IconButton)`
 text-decoration: none;
 height:100%;
-margin-left:20px;
-font-size:${({theme})=>theme.font.size.h4};
-color:var(--orange-200);
+width:max-content;
 cursor: pointer;
 display:flex;
 flex-direction: column;
-justify-content: center;
 align-items: center;
+justify-content: center;
+text-align: center;
+margin-left:10px;
+svg{
+    font-size:2rem;
+    text-decoration: none;
+}
+p{
+    font-size:1.1rem;
+   margin-bottom:10px;
+   text-decoration: none;
+}
 `
 export const StyledIText = styled.p`
-font-size:${({theme})=>theme.font.size.h5};
-display:flex;
-justify-content: center;
-word-spacing:-0.3rem;
+word-spacing:.2rem;
 max-width:100%;
 padding:0;
 margin:0;

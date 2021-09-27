@@ -3,10 +3,15 @@ import { useAuth } from '@src/services/hooks/useAuth';
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import LoginModal from '../loginModal/LoginModal';
+import Box from '@mui/material/Box';
+import LoginIcon from '@mui/icons-material/Login';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import FastfoodIcon from '@mui/icons-material/Fastfood';
+import EmojiFoodBeverageIcon from '@mui/icons-material/EmojiFoodBeverage';
+import { AppBar, Toolbar } from '@mui/material';
 
 import {
-  HeaderWrapper,
-  StyledI,
+  StyledIconWrapper,
   StyledIconsWrapper,
   StyledLogo,
   StyledIText,
@@ -35,59 +40,73 @@ const Header: React.FC = () => {
       setIsOpen(false);
     }
   }, [auth]);
+  useEffect(() => {
+    console.log(isOpen);
+  }, [isOpen]);
   return (
     <>
-      <HeaderWrapper>
-        <StyledWrapper>
-          <StyledLogo as={NavLink} exact to="/">
-            B
-          </StyledLogo>
+      <Box sx={{ flexGrow: 1 }}>
+        <AppBar position="static" sx={{ maxHeight: '60px' }}>
+          <Toolbar
+            sx={{
+              justifyContent: 'space-between',
+              width: '80%',
+              margin: 'auto',
+            }}
+          >
+            <StyledLogo as={NavLink} exact to="/">
+              B
+            </StyledLogo>
+            <StyledIconsWrapper>
+              <StyledIconWrapper as={NavLink} to="/menu">
+                <FastfoodIcon></FastfoodIcon>
+                <StyledIText>Dania główne</StyledIText>
+              </StyledIconWrapper>
+              <StyledIconWrapper as={NavLink} to="/additives">
+                <EmojiFoodBeverageIcon></EmojiFoodBeverageIcon>
+                <StyledIText>Dodatki</StyledIText>
+              </StyledIconWrapper>
+              {auth.userName ? (
+                <>
+                  <StyledIconWrapper>
+                    <StyledIText>Koszyk</StyledIText>
+                  </StyledIconWrapper>
+                  <StyledIconWrapper as={NavLink} to="/user">
+                    <StyledIText>{auth.userName}</StyledIText>
+                  </StyledIconWrapper>
+                  <StyledIconWrapper
+                    as={NavLink}
+                    to="/"
+                    onClick={() => auth.signOut()}
+                  >
+                    <StyledIText>Wyloguj się</StyledIText>
+                  </StyledIconWrapper>
+                </>
+              ) : (
+                <>
+                  <StyledIconWrapper>
+                    <ShoppingCartIcon></ShoppingCartIcon>
+                    <StyledIText>Koszyk</StyledIText>
+                  </StyledIconWrapper>
 
-          <StyledIconsWrapper>
-            <StyledI as={NavLink} to="/menu" className="pi pi-ellipsis-h">
-              <StyledIText>Dania główne</StyledIText>
-            </StyledI>
-            <StyledI as={NavLink} to="/additives" className="pi pi-plus">
-              <StyledIText>Dodatki</StyledIText>
-            </StyledI>
-            {auth.userName ? (
-              <>
-                <StyledI className="pi pi-shopping-cart">
-                  <StyledIText>Koszyk</StyledIText>
-                </StyledI>
-                <StyledI as={NavLink} to="/user" className="pi pi-user">
-                  <StyledIText>{auth.userName}</StyledIText>
-                </StyledI>
-                <StyledI
-                  as={NavLink}
-                  to="/"
-                  onClick={() => auth.signOut()}
-                  className="pi pi-sign-out"
-                >
-                  <StyledIText>Wyloguj się</StyledIText>
-                </StyledI>
-              </>
-            ) : (
-              <>
-                <StyledI className="pi pi-shopping-cart">
-                  <StyledIText>Koszyk</StyledIText>
-                </StyledI>
-                <StyledI
-                  id="loginButton"
-                  className="pi pi-sign-in"
-                  onClick={() => setIsOpen(!isOpen)}
-                >
-                  <StyledIText id="loginButton">Zaloguj się</StyledIText>
-                </StyledI>
-                <LoginModal
-                  isOpen={isOpen}
-                  error={auth.loginError ? auth.loginError : null}
-                />
-              </>
-            )}
-          </StyledIconsWrapper>
-        </StyledWrapper>
-      </HeaderWrapper>
+                  <StyledIconWrapper
+                    id="loginButton"
+                    onClick={() => setIsOpen(!isOpen)}
+                  >
+                    <LoginIcon id="loginButton"></LoginIcon>
+                    <StyledIText id="loginButton">Zaloguj się</StyledIText>
+                  </StyledIconWrapper>
+
+                  <LoginModal
+                    isOpen={isOpen}
+                    error={auth.loginError ? auth.loginError : null}
+                  />
+                </>
+              )}
+            </StyledIconsWrapper>
+          </Toolbar>
+        </AppBar>
+      </Box>
     </>
   );
 };

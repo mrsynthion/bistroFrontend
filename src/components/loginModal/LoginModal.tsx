@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
-import { StyledLoginModalWrapper, StyledParagraph } from './LoginModal.styled';
+import {
+  StyledButtonWrapper,
+  StyledLoginModalWrapper,
+  StyledParagraph,
+} from './LoginModal.styled';
 import { useForm, Controller } from 'react-hook-form';
-import { Button } from 'primereact/button';
-import { InputText } from 'primereact/inputtext';
-import { Password } from 'primereact/password';
-import { Divider } from 'primereact/divider';
-
-import { classNames } from 'primereact/utils';
 import { useAuth } from '@src/services/hooks/useAuth';
 import { useEffect } from 'react';
+import { Box } from '@mui/system';
+import { Button, Divider, Input, TextField } from '@mui/material';
 
 type FormValues = {
   userUsername: string;
@@ -27,12 +27,7 @@ const LoginModal: React.FC<{
     userUsername: '',
     userPassword: '',
   };
-  const {
-    control,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm({ defaultValues });
+  const { control, handleSubmit, reset } = useForm({ defaultValues });
 
   const onSubmit = (data: FormValues) => {
     setFormData(data);
@@ -47,65 +42,62 @@ const LoginModal: React.FC<{
 
   return (
     <StyledLoginModalWrapper id="loginModal" isOpen={isOpen}>
-      <form onSubmit={handleSubmit(onSubmit)} className="p-fluid">
-        <div className="p-field" style={{ marginBottom: '2rem' }}>
-          <span className="p-float-label">
-            <Controller
-              name="userUsername"
-              control={control}
-              rules={{ required: 'Nazwa uzytkownika jest wymagana' }}
-              render={({ field, fieldState }) => (
-                <InputText
-                  id={field.name}
-                  {...field}
-                  autoFocus
-                  className={classNames({ 'p-invalid': fieldState.invalid })}
-                />
-              )}
+      <Box
+        sx={{
+          width: '60%',
+          margin: 'auto',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+          alignContent: 'center',
+        }}
+        component="form"
+        autoComplete="off"
+        onSubmit={handleSubmit(onSubmit)}
+      >
+        <Controller
+          name="userUsername"
+          control={control}
+          rules={{ required: 'Nazwa uzytkownika jest wymagana' }}
+          render={({ field: { onChange, value }, fieldState: { error } }) => (
+            <TextField
+              onChange={onChange}
+              value={value}
+              label={'Nazwa uzytkownika'}
+              sx={{ marginBottom: '0.7rem' }}
+              error={!!error}
+              helperText={error ? error.message : null}
+              size="small"
             />
-            <label
-              htmlFor="username"
-              className={classNames({
-                'p-error': errors.userUsername || error?.message,
-              })}
-            >
-              Nazwa uzytkownika*
-            </label>
-          </span>
-        </div>
+          )}
+        />
 
-        <div className="p-field">
-          <span className="p-float-label ">
-            <Controller
-              name="userPassword"
-              control={control}
-              rules={{ required: 'Hasło jest wymagane' }}
-              render={({ field, fieldState }) => (
-                <Password
-                  feedback={false}
-                  id={field.name}
-                  {...field}
-                  toggleMask
-                  className={classNames({
-                    'p-invalid': fieldState.invalid,
-                  })}
-                />
-              )}
+        <Controller
+          name="userPassword"
+          control={control}
+          rules={{ required: 'Hasło jest wymagane' }}
+          render={({ field: { onChange, value }, fieldState: { error } }) => (
+            <TextField
+              sx={{ marginBottom: '0.7rem' }}
+              onChange={onChange}
+              value={value}
+              label={'Hasło'}
+              error={!!error}
+              helperText={error ? error.message : null}
+              type="password"
+              size="small"
             />
-            <label
-              htmlFor="userPassword"
-              className={classNames({
-                'p-text-secondary': !errors.userPassword,
-                'p-error': errors.userPassword || error,
-              })}
-            >
-              Hasło*
-            </label>
-          </span>
-        </div>
-        <Divider />
-        <Button type="submit" label="Zaloguj" className="p-mt-2" />
-      </form>
+          )}
+        />
+        <StyledButtonWrapper>
+          <Button onClick={handleSubmit(onSubmit)} variant={'contained'}>
+            Submit
+          </Button>
+          <Button onClick={() => reset()} variant={'contained'}>
+            Reset
+          </Button>
+        </StyledButtonWrapper>
+      </Box>
 
       <StyledParagraph>{error ? error.message : ''}</StyledParagraph>
     </StyledLoginModalWrapper>
