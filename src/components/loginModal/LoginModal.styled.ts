@@ -4,7 +4,7 @@ import styled from "styled-components";
 export const StyledLoginModalWrapper = styled.div<{isOpen:boolean}>`
     width:min(100%,400px);
     height: 250px;
-    background-color:#90caf9;
+    background-color:#42a5f5;
     z-index: 99;
     display: ${({isOpen})=>isOpen ? 'flex':'none'};
     position:absolute;

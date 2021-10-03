@@ -2,18 +2,10 @@ import { IconButton } from '@mui/material';
 import styled from 'styled-components';
 
 
-export const StyledWrapper = styled.div`
-width:80%;
-height:100%;
-margin: auto;
-display: flex;
-flex-direction: row;
-justify-content: space-between;
-align-items: center;
-position:relative;
-`
+
 
 export const StyledLogo = styled.div`
+color: rgba(0, 0, 0, 0.54);
     text-transform: uppercase;
     text-decoration: none;
     width:50px;
@@ -28,6 +20,7 @@ export const StyledLogo = styled.div`
 `;
 
 export const StyledIconsWrapper = styled.div`
+color: rgba(0, 0, 0, 0.54);
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
@@ -38,6 +31,7 @@ export const StyledIconsWrapper = styled.div`
 
 `
 export const StyledIconWrapper = styled(IconButton)`
+color: rgba(0, 0, 0, 0.54);
 text-decoration: none;
 height:100%;
 width:max-content;

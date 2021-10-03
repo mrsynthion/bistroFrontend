@@ -15,8 +15,8 @@ import {
   StyledIconsWrapper,
   StyledLogo,
   StyledIText,
-  StyledWrapper,
 } from './Header.styled';
+import { Add } from '@mui/icons-material';
 
 const Header: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -40,9 +40,6 @@ const Header: React.FC = () => {
       setIsOpen(false);
     }
   }, [auth]);
-  useEffect(() => {
-    console.log(isOpen);
-  }, [isOpen]);
   return (
     <>
       <Box sx={{ flexGrow: 1 }}>
@@ -50,8 +47,9 @@ const Header: React.FC = () => {
           <Toolbar
             sx={{
               justifyContent: 'space-between',
-              width: '80%',
-              margin: 'auto',
+              width: '90%',
+              marginLeft: 'auto',
+              marginRight: '5%',
             }}
           >
             <StyledLogo as={NavLink} exact to="/">
@@ -66,7 +64,7 @@ const Header: React.FC = () => {
                 <EmojiFoodBeverageIcon></EmojiFoodBeverageIcon>
                 <StyledIText>Dodatki</StyledIText>
               </StyledIconWrapper>
-              {auth.userName ? (
+              {localStorage.getItem('userName') ? (
                 <>
                   <StyledIconWrapper>
                     <StyledIText>Koszyk</StyledIText>
@@ -95,6 +93,10 @@ const Header: React.FC = () => {
                   >
                     <LoginIcon id="loginButton"></LoginIcon>
                     <StyledIText id="loginButton">Zaloguj się</StyledIText>
+                  </StyledIconWrapper>
+                  <StyledIconWrapper as={NavLink} to="/register">
+                    <Add></Add>
+                    <StyledIText>Zarejestruj się</StyledIText>
                   </StyledIconWrapper>
 
                   <LoginModal

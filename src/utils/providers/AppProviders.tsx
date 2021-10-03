@@ -14,7 +14,6 @@ const AppProviders: React.FC = ({ children }) => {
           <Router>{children}</Router>
         </AuthProvider>
       </ThemeProvider>
-      \
     </>
   );
 };

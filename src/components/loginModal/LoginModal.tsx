@@ -8,7 +8,7 @@ import { useForm, Controller } from 'react-hook-form';
 import { useAuth } from '@src/services/hooks/useAuth';
 import { useEffect } from 'react';
 import { Box } from '@mui/system';
-import { Button, Divider, Input, TextField } from '@mui/material';
+import { Button, TextField } from '@mui/material';
 
 type FormValues = {
   userUsername: string;
