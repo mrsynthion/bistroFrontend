@@ -1,6 +1,6 @@
-import { Theme } from "./theme.model";
 
-export const theme:Theme ={
+
+export const theme:any ={
     font:{
         size: {
             h1:'3.5rem',

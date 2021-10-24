@@ -16,8 +16,7 @@ type FormValues = {
 };
 const LoginModal: React.FC<{
   isOpen: boolean;
-  error?: { message?: string } | null;
-}> = ({ isOpen, error }) => {
+}> = ({ isOpen }) => {
   const [formData, setFormData] = useState<FormValues>({
     userUsername: '',
     userPassword: '',
@@ -98,8 +97,10 @@ const LoginModal: React.FC<{
           </Button>
         </StyledButtonWrapper>
       </Box>
-
-      <StyledParagraph>{error ? error.message : ''}</StyledParagraph>
+      {console.log(auth)}
+      <StyledParagraph>
+        {auth.loginError ? auth.loginError : ''}
+      </StyledParagraph>
     </StyledLoginModalWrapper>
   );
 };
