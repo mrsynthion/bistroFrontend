@@ -21,23 +21,25 @@ import { Add } from '@mui/icons-material';
 import { useDispatch, useSelector } from 'react-redux';
 import { api } from '@src/utils/axios/axios.interceptor';
 import { setUserData } from '@src/store/userDataStore/userSlice';
+import ShoppingCartModal from '../shoppingCartModal/ShoppingCartModal';
 
 const Header: React.FC = () => {
   const dispatch = useDispatch();
   const userData = useSelector((state: any) => state.userData);
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpenLoginModal, setIsOpenLoginModal] = useState(false);
+  const [isOpenShoppingCartModal, setIsOpenShoppingCartModal] = useState(false);
   const auth = useAuth();
   const handleDocumentClick = (e: any) => {
     const isClosest = e.target.closest('#loginModal');
     const targetId = e.target.id;
     if (isClosest == null && targetId.toString() !== 'loginButton') {
-      setIsOpen(false);
+      setIsOpenLoginModal(false);
     }
   };
 
   useEffect(() => {
     document.addEventListener('click', handleDocumentClick);
-    setIsOpen(false);
+    setIsOpenLoginModal(false);
     api
       .get('users/data')
       .then((response) => {
@@ -66,14 +68,18 @@ const Header: React.FC = () => {
               B
             </StyledLogo>
             <StyledIconsWrapper>
-              <StyledIconWrapper as={NavLink} to="/menu">
+              <StyledIconWrapper as={NavLink} to="/menu" isPointer={true}>
                 <FastfoodIcon></FastfoodIcon>
                 <StyledIText>Dania główne</StyledIText>
               </StyledIconWrapper>
 
               {userData.userName ? (
                 <>
-                  <StyledIconWrapper>
+                  <StyledIconWrapper
+                    onClick={() =>
+                      setIsOpenShoppingCartModal(!isOpenShoppingCartModal)
+                    }
+                  >
                     <ShoppingCartIcon></ShoppingCartIcon>
                     <StyledIText>Koszyk</StyledIText>
                   </StyledIconWrapper>
@@ -89,27 +95,37 @@ const Header: React.FC = () => {
                     <ExitToAppIcon></ExitToAppIcon>
                     <StyledIText>Wyloguj się</StyledIText>
                   </StyledIconWrapper>
+                  <ShoppingCartModal isOpen={isOpenShoppingCartModal} />
                 </>
               ) : (
                 <>
-                  <StyledIconWrapper>
+                  <StyledIconWrapper
+                    id="shoppingCartButton"
+                    onMouseOver={() => setIsOpenShoppingCartModal(true)}
+                    onMouseLeave={() => setIsOpenShoppingCartModal(false)}
+                  >
                     <ShoppingCartIcon></ShoppingCartIcon>
                     <StyledIText>Koszyk</StyledIText>
+                    <ShoppingCartModal isOpen={isOpenShoppingCartModal} />
                   </StyledIconWrapper>
 
                   <StyledIconWrapper
                     id="loginButton"
-                    onClick={() => setIsOpen(!isOpen)}
+                    onMouseOver={() => setIsOpenLoginModal(true)}
+                    onMouseLeave={() => setIsOpenLoginModal(false)}
                   >
                     <LoginIcon id="loginButton"></LoginIcon>
                     <StyledIText id="loginButton">Zaloguj się</StyledIText>
+                    <LoginModal isOpen={isOpenLoginModal} />
                   </StyledIconWrapper>
-                  <StyledIconWrapper as={NavLink} to="/register">
+                  <StyledIconWrapper
+                    as={NavLink}
+                    to="/register"
+                    isPointer={true}
+                  >
                     <Add></Add>
                     <StyledIText>Zarejestruj się</StyledIText>
                   </StyledIconWrapper>
-
-                  <LoginModal isOpen={isOpen} />
                 </>
               )}
             </StyledIconsWrapper>

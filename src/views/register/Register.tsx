@@ -79,6 +79,8 @@ const Register: React.FC = () => {
       onSubmit={handleSubmit(onSubmit)}
     >
       <StyledRegisterInputWrapper>
+        <div></div>
+        <div></div>
         {Object.keys(defaultValues).map((defaultValue, index) =>
           Object.values(PolishVariables).map((item, i) => {
             if (index === i) {

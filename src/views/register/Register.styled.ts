@@ -3,12 +3,12 @@ import styled from "styled-components";
 
 
 export const StyledRegisterInputWrapper = styled.div`
-height:70%;
+height:50vh;
 width:80%;
 margin:auto;
 display:grid;
 grid-template-columns:repeat(2,50%);
-grid-template-rows: repeat(6,1fr);
+grid-template-rows: repeat(7,1fr);
 grid-gap: 3%;
 `
 export const StyledInputWrapper = styled.div<{value:string}>`
@@ -16,6 +16,7 @@ width:100%;
 height:100%;
 grid-column-start: ${({value})=> value === PolishVariables.userPassword ? 1 :''};
 grid-column-end: ${({value})=> value === PolishVariables.userPassword ?  3:''};
+
 `
 interface SubmittingParagraphProps {
     error?:boolean,

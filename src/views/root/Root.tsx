@@ -3,10 +3,6 @@ import React from 'react';
 import { StyledWrapper } from './Root.styled';
 
 const Root: React.FC = () => {
-  return (
-    <StyledWrapper>
-      <h1>siema</h1>
-    </StyledWrapper>
-  );
+  return <StyledWrapper></StyledWrapper>;
 };
 export default Root;

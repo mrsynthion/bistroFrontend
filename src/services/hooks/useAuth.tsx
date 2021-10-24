@@ -4,7 +4,6 @@ import { useContext } from 'react';
 import { useDispatch } from 'react-redux';
 import { Redirect } from 'react-router';
 import { setUserData } from '@src/store/userDataStore/userSlice';
-import { ElevatorSharp } from '@mui/icons-material';
 const path = '/users';
 
 interface context {
@@ -23,19 +22,13 @@ export const AuthProvider = ({ children }: any) => {
         userUsername,
         userPassword,
       });
-      setLoginError('Błąd połączenia z serwerem');
+
+      console.log(response);
       const userData = response.data;
       if (userData) {
-        setLoginError(null);
         dispatch(setUserData(userData));
       }
-    } catch (err: any) {
-      console.log('catcj');
-      setLoginError('Błąd połączenia z serwerem');
-      if (err.message) {
-        setLoginError(err.message);
-      }
-    }
+    } catch (catchError: any) {}
   };
   const signOut = async () => {
     dispatch(setUserData(null));

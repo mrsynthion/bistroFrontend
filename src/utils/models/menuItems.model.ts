@@ -3,5 +3,5 @@ export interface MenuItemsModel {
     menuItemName:string,
     menuItemCategory:string,
     menuItemDescription:string,
-    menuItemPrice:string
+    menuItemPrice:number
 }

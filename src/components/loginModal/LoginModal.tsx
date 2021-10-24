@@ -37,7 +37,7 @@ const LoginModal: React.FC<{
     if (userUsername && userPassword) {
       auth.signIn(userUsername, userPassword);
     }
-  }, [formData, auth]);
+  }, [formData]);
 
   return (
     <StyledLoginModalWrapper id="loginModal" isOpen={isOpen}>
@@ -96,11 +96,10 @@ const LoginModal: React.FC<{
             Reset
           </Button>
         </StyledButtonWrapper>
+        <StyledParagraph>
+          {auth.loginError ? auth.loginError : ''}
+        </StyledParagraph>
       </Box>
-      {console.log(auth)}
-      <StyledParagraph>
-        {auth.loginError ? auth.loginError : ''}
-      </StyledParagraph>
     </StyledLoginModalWrapper>
   );
 };

@@ -30,12 +30,12 @@ color: rgba(0, 0, 0, 0.54);
     }
 
 `
-export const StyledIconWrapper = styled(IconButton)`
+export const StyledIconWrapper = styled(IconButton)<{isPointer?:boolean}>`
 color: rgba(0, 0, 0, 0.54);
 text-decoration: none;
 height:100%;
 width:max-content;
-cursor: pointer;
+cursor:${({isPointer})=> isPointer ? 'pointer': 'default'};;
 display:flex;
 flex-direction: column;
 align-items: center;

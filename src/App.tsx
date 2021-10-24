@@ -15,7 +15,7 @@ function App() {
       <Paper
         component="main"
         sx={{
-          minHeight: '100%',
+          minHeight: 'calc(100% - 60px)',
           width: '100%',
           position: 'absolute',
           top: '60px',
