@@ -1,9 +1,6 @@
 import { IconButton } from '@mui/material';
 import styled from 'styled-components';
 
-
-
-
 export const StyledLogo = styled.div`
 color: rgba(0, 0, 0, 0.54);
     text-transform: uppercase;
@@ -25,9 +22,12 @@ color: rgba(0, 0, 0, 0.54);
     flex-direction: row;
     justify-content: flex-end;
     align-items: center;
-    max-width:50%;
+    max-width: fit-content;
     width: fit-content;
     position:relative;
+    @media(min-width:1200px){
+        max-width:50%;
+    }
 
 `
 export const StyledIconWrapper = styled(IconButton)`

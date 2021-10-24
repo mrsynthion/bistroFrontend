@@ -3,13 +3,13 @@ import styled from "styled-components";
 
 
 export const StyledRegisterInputWrapper = styled.div`
-height:50%;
-width:50%;
+height:70%;
+width:80%;
 margin:auto;
 display:grid;
 grid-template-columns:repeat(2,50%);
 grid-template-rows: repeat(6,1fr);
-grid-gap: 10px;
+grid-gap: 3%;
 `
 export const StyledInputWrapper = styled.div<{value:string}>`
 width:100%;

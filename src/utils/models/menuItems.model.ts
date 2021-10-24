@@ -1,6 +1,7 @@
 export interface MenuItemsModel {
+    id:number,
     menuItemName:string,
     menuItemCategory:string,
-    menuItemDescritpion:string,
+    menuItemDescription:string,
     menuItemPrice:string
 }

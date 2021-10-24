@@ -8,8 +8,9 @@ import LoginIcon from '@mui/icons-material/Login';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import FastfoodIcon from '@mui/icons-material/Fastfood';
 import EmojiFoodBeverageIcon from '@mui/icons-material/EmojiFoodBeverage';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import PersonIcon from '@mui/icons-material/Person';
 import { AppBar, Toolbar } from '@mui/material';
-
 import {
   StyledIconWrapper,
   StyledIconsWrapper,
@@ -17,8 +18,13 @@ import {
   StyledIText,
 } from './Header.styled';
 import { Add } from '@mui/icons-material';
+import { useDispatch, useSelector } from 'react-redux';
+import { api } from '@src/utils/axios/axios.interceptor';
+import { setUserData } from '@src/store/userDataStore/userSlice';
 
 const Header: React.FC = () => {
+  const dispatch = useDispatch();
+  const userData = useSelector((state: any) => state.userData);
   const [isOpen, setIsOpen] = useState(false);
   const auth = useAuth();
   const handleDocumentClick = (e: any) => {
@@ -31,15 +37,19 @@ const Header: React.FC = () => {
 
   useEffect(() => {
     document.addEventListener('click', handleDocumentClick);
+    setIsOpen(false);
+    api
+      .get('users/data')
+      .then((response) => {
+        dispatch(setUserData(response.data));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
 
     return () => document.removeEventListener('click', handleDocumentClick);
   }, []);
 
-  useEffect(() => {
-    if (auth.userName) {
-      setIsOpen(false);
-    }
-  }, [auth]);
   return (
     <>
       <Box sx={{ flexGrow: 1 }}>
@@ -60,23 +70,23 @@ const Header: React.FC = () => {
                 <FastfoodIcon></FastfoodIcon>
                 <StyledIText>Dania główne</StyledIText>
               </StyledIconWrapper>
-              <StyledIconWrapper as={NavLink} to="/additives">
-                <EmojiFoodBeverageIcon></EmojiFoodBeverageIcon>
-                <StyledIText>Dodatki</StyledIText>
-              </StyledIconWrapper>
-              {localStorage.getItem('userName') ? (
+
+              {userData.userName ? (
                 <>
                   <StyledIconWrapper>
+                    <ShoppingCartIcon></ShoppingCartIcon>
                     <StyledIText>Koszyk</StyledIText>
                   </StyledIconWrapper>
                   <StyledIconWrapper as={NavLink} to="/user">
-                    <StyledIText>{auth.userName}</StyledIText>
+                    <PersonIcon></PersonIcon>
+                    <StyledIText>{userData.userName}</StyledIText>
                   </StyledIconWrapper>
                   <StyledIconWrapper
                     as={NavLink}
                     to="/"
                     onClick={() => auth.signOut()}
                   >
+                    <ExitToAppIcon></ExitToAppIcon>
                     <StyledIText>Wyloguj się</StyledIText>
                   </StyledIconWrapper>
                 </>
@@ -99,10 +109,7 @@ const Header: React.FC = () => {
                     <StyledIText>Zarejestruj się</StyledIText>
                   </StyledIconWrapper>
 
-                  <LoginModal
-                    isOpen={isOpen}
-                    error={auth.loginError ? auth.loginError : null}
-                  />
+                  <LoginModal isOpen={isOpen} />
                 </>
               )}
             </StyledIconsWrapper>

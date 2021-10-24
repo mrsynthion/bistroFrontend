@@ -13,8 +13,11 @@ import {
   StyledRegisterInputWrapper,
   StyledSubmittingParagraph,
 } from './Register.styled';
+import { useDispatch } from 'react-redux';
+import { setUserData } from '@src/store/userDataStore/userSlice';
 
 const Register: React.FC = () => {
+  const dispatch = useDispatch();
   const [formData, setFormData] = useState<UserModel>();
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
@@ -36,26 +39,30 @@ const Register: React.FC = () => {
     setFormData(data);
   };
   useEffect(() => {
-    api
-      .post('users/addUser', {
-        ...formData,
-      })
-      .then((res: any) => {
-        if (res.status === 201) {
-          setSuccess('Konto zostało utworzone');
-        }
-      })
-      .catch((err) => {
-        setError(err.response.data.message);
-      });
+    if (formData) {
+      api
+        .post('users/addUser', {
+          ...formData,
+        })
+        .then((res: any) => {
+          console.log(res);
+          if (res.status === 201) {
+            setSuccess('Konto zostało utworzone');
+            dispatch(setUserData(res.data));
+          }
+        })
+        .catch((err) => {
+          setError(err.response.data.message);
+        });
+    }
   }, [formData]);
 
   return (
     <Box
       sx={{
-        height: '80%',
-        width: '80%',
-        margin: '5% auto 0',
+        height: '60%',
+        width: '50%',
+        margin: '15% auto 0',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
@@ -64,6 +71,8 @@ const Register: React.FC = () => {
           'rgb(0 0 0 / 8%) 0px 2px 4px 0px, rgb(0 0 0 / 8%) 0px 0px 2px 1px',
         borderRadius: '50px',
         textAlign: 'center',
+        backgroundColor: '#FFE082',
+        color: '#fff',
       }}
       component="form"
       autoComplete="off"

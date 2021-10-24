@@ -1,6 +1,8 @@
+import { MenuItemsModel } from "./menuItems.model";
+
 export interface OrderModel {
     orderUserUsername:string,
-    orderMenuItemsId: Array<number>,
+    orderMenuItems: Array<MenuItemsModel>,
     orderTotalPrice:number,
     orderPlaceToOrder:string,
     orderIsSent:boolean,
