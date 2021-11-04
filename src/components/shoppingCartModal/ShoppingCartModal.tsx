@@ -25,9 +25,26 @@ const ShoppingCartModal: React.FC<Props> = ({ isOpen }) => {
   const dispatch = useDispatch();
   return (
     <StyledShoppingCartModalWrapper isOpen={isOpen}>
-      <Table sx={{ width: '80%', margin: 'auto' }}>
-        <TableHead>
-          <TableCell>Łączna cena:</TableCell>
+      <Table
+        sx={{
+          width: '80%',
+          height: '100%',
+          margin: 'auto',
+          position: 'relative',
+        }}
+      >
+        <TableHead
+          sx={{
+            position: 'absolute',
+            top: '0',
+            height: '15%',
+            width: '100%',
+            display: 'flex',
+            flexDirection: 'row',
+            placeContent: 'center',
+          }}
+        >
+          <TableCell>Łączna koszt:</TableCell>
           <TableCell>
             {orderData.orderMenuItems.reduce(
               (acc, cur) => cur.menuItemPrice + acc,
@@ -35,7 +52,9 @@ const ShoppingCartModal: React.FC<Props> = ({ isOpen }) => {
             ) + 'zł'}
           </TableCell>
         </TableHead>
-        <TableBody>
+        <TableBody
+          sx={{ position: 'absolute', top: '15%', overflow: 'hidden' }}
+        >
           {orderData.orderMenuItems.map((item: MenuItemsModel) => (
             <TableRow>
               <TableCell>{item.menuItemName}</TableCell>

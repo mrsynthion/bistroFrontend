@@ -22,8 +22,6 @@ export const AuthProvider = ({ children }: any) => {
         userUsername,
         userPassword,
       });
-
-      console.log(response);
       const userData = response.data;
       if (userData) {
         dispatch(setUserData(userData));

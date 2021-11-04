@@ -20,12 +20,14 @@ export const orderSlice = createSlice({
   name: "order",
   initialState: initialOrderState,
   reducers: {
-    addOrderMenuITem(state,action){
-        state.orderMenuItems.push(action.payload)
+    addOrderMenuITem(state:any,action){
+        state.orderMenuItems.push(
+          {...action.payload,index:state.orderMenuItems.length})
     },
     removeOrderMenuITem(state,action){
       return {...state,
-        orderMenuItems:state.orderMenuItems.filter((item:MenuItemsModel)=> item.id !==action.payload.id)}
+        orderMenuItems:state.orderMenuItems.filter(
+          (item:any)=> item.index !==action.payload.index)}
     },
     setOrderData(state,action){
         return {
