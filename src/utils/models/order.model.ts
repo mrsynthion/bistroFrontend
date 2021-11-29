@@ -1,15 +1,15 @@
-import { MenuItemsModel } from "./menuItems.model";
+import { MenuItemsModel } from './menuItems.model';
 
-interface AddressModel{
-
-}
+interface AddressModel {}
 
 export interface OrderModel {
-    orderUserUsername:string,
-    orderMenuItems: Array<MenuItemsModel>,
-    orderTotalPrice:number,
-    orderPlaceToOrder:string,
-    orderIsSent:boolean,
-    orderIsAccepted:boolean,
-    orderUserId:number | null
+  orderMenuItems: Array<MenuItemsModel>;
+  orderTotalPrice: number;
+  orderPlaceToOrder: string;
+  orderIsSent: boolean;
+  orderIsAccepted: boolean;
+  orderUserId: number | null;
+  orderUserName: string;
+  orderUserLastName: string;
+  orderUserPhoneNumber: string;
 }

@@ -19,7 +19,7 @@ import AddIcon from '@mui/icons-material/Add';
 import { MenuItemsTypesModel } from '@src/utils/models/menuItemsTypes.model';
 import { useGetTypesQuery } from '@src/store/menuStore/typesSlice';
 import { useDispatch } from 'react-redux';
-import { addOrderMenuITem } from '@src/store/orderStore/orderSlice';
+import { addOrderMenuItem } from '@src/store/orderStore/orderSlice';
 
 const MenuItems: React.FC = () => {
   const { data, isLoading, isError } = useGetMenuItemsQuery({});
@@ -29,7 +29,7 @@ const MenuItems: React.FC = () => {
 
   return (
     <StyledMenuItemsWrapper>
-      <h1>Danie Główne</h1>
+      <h1>Menu</h1>
       {isError || types?.isError ? (
         <h2>Wystąpił błąd z pobraniem danych</h2>
       ) : null}
@@ -67,57 +67,60 @@ const MenuItems: React.FC = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {data.map((item: MenuItemsModel) => {
-                  if (item.menuItemCategory === type.name) {
-                    return (
-                      <TableRow
-                        key={item.id}
-                        sx={{
-                          width: '80%',
-                          margin: 'auto',
-                          display: 'grid',
-                          gridTemplateColumns: '20% 1fr 5% 15%',
-                        }}
-                      >
-                        <TableCell
+                {
+                  // eslint-disable-next-line
+                  data.map((item: MenuItemsModel) => {
+                    if (item.menuItemCategory === type.name) {
+                      return (
+                        <TableRow
+                          key={item.id}
                           sx={{
-                            display: 'flex',
-                            flexDirection: 'column',
-                            justifyContent: 'center',
+                            width: '80%',
+                            margin: 'auto',
+                            display: 'grid',
+                            gridTemplateColumns: '20% 1fr 5% 15%',
                           }}
                         >
-                          {item.menuItemName}
-                        </TableCell>
-                        <TableCell
-                          sx={{
-                            display: 'flex',
-                            flexDirection: 'column',
-                            justifyContent: 'center',
-                          }}
-                        >
-                          {item.menuItemDescription}
-                        </TableCell>
-                        <TableCell
-                          sx={{
-                            display: 'flex',
-                            flexDirection: 'column',
-                            justifyContent: 'center',
-                          }}
-                        >
-                          {item.menuItemPrice + 'zł'}
-                        </TableCell>
-                        <TableCell>
-                          <StyledIconWrapper
-                            onClick={() => dispatch(addOrderMenuITem(item))}
+                          <TableCell
+                            sx={{
+                              display: 'flex',
+                              flexDirection: 'column',
+                              justifyContent: 'center',
+                            }}
                           >
-                            <AddIcon></AddIcon>
-                            <StyledIconText>Dodaj do koszyka</StyledIconText>
-                          </StyledIconWrapper>
-                        </TableCell>
-                      </TableRow>
-                    );
-                  }
-                })}
+                            {item.menuItemName}
+                          </TableCell>
+                          <TableCell
+                            sx={{
+                              display: 'flex',
+                              flexDirection: 'column',
+                              justifyContent: 'center',
+                            }}
+                          >
+                            {item.menuItemDescription}
+                          </TableCell>
+                          <TableCell
+                            sx={{
+                              display: 'flex',
+                              flexDirection: 'column',
+                              justifyContent: 'center',
+                            }}
+                          >
+                            {item.menuItemPrice + 'zł'}
+                          </TableCell>
+                          <TableCell>
+                            <StyledIconWrapper
+                              onClick={() => dispatch(addOrderMenuItem(item))}
+                            >
+                              <AddIcon></AddIcon>
+                              <StyledIconText>Dodaj do koszyka</StyledIconText>
+                            </StyledIconWrapper>
+                          </TableCell>
+                        </TableRow>
+                      );
+                    }
+                  })
+                }
               </TableBody>
             </Table>
           ))

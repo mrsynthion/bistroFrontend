@@ -1,6 +1,6 @@
 import { Button, TextField } from '@mui/material';
 import { Box } from '@mui/system';
-import { api } from '@utils/axios/axios.interceptor';
+import api from '@utils/axios/axios.interceptor';
 import {
   UserVariablesNames,
   PolishVariables,
@@ -55,6 +55,7 @@ const Register: React.FC = () => {
           setError(err.response.data.message);
         });
     }
+    // eslint-disable-next-line
   }, [formData]);
 
   return (
@@ -82,6 +83,7 @@ const Register: React.FC = () => {
         <div></div>
         <div></div>
         {Object.keys(defaultValues).map((defaultValue, index) =>
+          // eslint-disable-next-line
           Object.values(PolishVariables).map((item, i) => {
             if (index === i) {
               return (
@@ -123,7 +125,7 @@ const Register: React.FC = () => {
           variant={'contained'}
           sx={{ width: '80%', margin: 'auto', height: '60%' }}
         >
-          Sign in
+          Zarejestruj się
         </Button>
         <Button
           onClick={() => {

@@ -37,6 +37,7 @@ const LoginModal: React.FC<{
     if (userUsername && userPassword) {
       auth.signIn(userUsername, userPassword);
     }
+    // eslint-disable-next-line
   }, [formData]);
 
   return (

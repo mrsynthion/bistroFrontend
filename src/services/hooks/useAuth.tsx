@@ -1,4 +1,4 @@
-import { api } from '@src/utils/axios/axios.interceptor';
+import api from '@src/utils/axios/axios.interceptor';
 import { useState, createContext } from 'react';
 import { useContext } from 'react';
 import { useDispatch } from 'react-redux';

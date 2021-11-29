@@ -7,7 +7,6 @@ import Box from '@mui/material/Box';
 import LoginIcon from '@mui/icons-material/Login';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import FastfoodIcon from '@mui/icons-material/Fastfood';
-import EmojiFoodBeverageIcon from '@mui/icons-material/EmojiFoodBeverage';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import PersonIcon from '@mui/icons-material/Person';
 import { AppBar, Toolbar } from '@mui/material';
@@ -19,7 +18,7 @@ import {
 } from './Header.styled';
 import { Add } from '@mui/icons-material';
 import { useDispatch, useSelector } from 'react-redux';
-import { api } from '@src/utils/axios/axios.interceptor';
+import api from '@src/utils/axios/axios.interceptor';
 import { setUserData } from '@src/store/userDataStore/userSlice';
 import ShoppingCartModal from '../shoppingCartModal/ShoppingCartModal';
 
@@ -50,12 +49,13 @@ const Header: React.FC = () => {
       });
 
     return () => document.removeEventListener('click', handleDocumentClick);
+    // eslint-disable-next-line
   }, []);
 
   return (
     <>
       <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static" sx={{ maxHeight: '60px' }}>
+        <AppBar position="fixed" sx={{ maxHeight: '60px' }}>
           <Toolbar
             sx={{
               justifyContent: 'space-between',
@@ -68,20 +68,23 @@ const Header: React.FC = () => {
               B
             </StyledLogo>
             <StyledIconsWrapper>
-              <StyledIconWrapper as={NavLink} to="/menu" isPointer={true}>
+              <StyledIconWrapper as={NavLink} to="/menu">
                 <FastfoodIcon></FastfoodIcon>
-                <StyledIText>Dania główne</StyledIText>
+                <StyledIText>Menu</StyledIText>
               </StyledIconWrapper>
 
               {userData.userName ? (
                 <>
                   <StyledIconWrapper
-                    onClick={() =>
-                      setIsOpenShoppingCartModal(!isOpenShoppingCartModal)
-                    }
+                    id="shoppingCartButton"
+                    onMouseOver={() => setIsOpenShoppingCartModal(true)}
+                    onMouseLeave={() => setIsOpenShoppingCartModal(false)}
+                    as={NavLink}
+                    to="/makeOrder"
                   >
                     <ShoppingCartIcon></ShoppingCartIcon>
                     <StyledIText>Koszyk</StyledIText>
+                    <ShoppingCartModal isOpen={isOpenShoppingCartModal} />
                   </StyledIconWrapper>
                   <StyledIconWrapper as={NavLink} to="/user">
                     <PersonIcon></PersonIcon>
@@ -95,7 +98,6 @@ const Header: React.FC = () => {
                     <ExitToAppIcon></ExitToAppIcon>
                     <StyledIText>Wyloguj się</StyledIText>
                   </StyledIconWrapper>
-                  <ShoppingCartModal isOpen={isOpenShoppingCartModal} />
                 </>
               ) : (
                 <>
@@ -103,6 +105,8 @@ const Header: React.FC = () => {
                     id="shoppingCartButton"
                     onMouseOver={() => setIsOpenShoppingCartModal(true)}
                     onMouseLeave={() => setIsOpenShoppingCartModal(false)}
+                    as={NavLink}
+                    to="/makeOrder"
                   >
                     <ShoppingCartIcon></ShoppingCartIcon>
                     <StyledIText>Koszyk</StyledIText>
@@ -118,11 +122,7 @@ const Header: React.FC = () => {
                     <StyledIText id="loginButton">Zaloguj się</StyledIText>
                     <LoginModal isOpen={isOpenLoginModal} />
                   </StyledIconWrapper>
-                  <StyledIconWrapper
-                    as={NavLink}
-                    to="/register"
-                    isPointer={true}
-                  >
+                  <StyledIconWrapper as={NavLink} to="/register">
                     <Add></Add>
                     <StyledIText>Zarejestruj się</StyledIText>
                   </StyledIconWrapper>

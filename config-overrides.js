@@ -1,8 +1,9 @@
 const path = require('path');
-const { addWebpackAlias } = require('customize-cra');
-
-module.exports = function override(config, env) {
-  config = addWebpackAlias({
+const { override, addWebpackAlias } = require('customize-cra');
+const rewireReactHotLoader = require('react-app-rewire-hot-loader');
+module.exports = override(
+  rewireReactHotLoader,
+  addWebpackAlias({
     ['@src']: path.resolve(__dirname, 'src'),
     ['@assets']: path.resolve(__dirname, 'src', 'assets'),
     ['@components']: path.resolve(__dirname, 'src', 'components'),
@@ -11,7 +12,5 @@ module.exports = function override(config, env) {
     ['@utils']: path.resolve(__dirname, 'src', 'utils'),
     ['@views']: path.resolve(__dirname, 'src', 'views'),
     ['@theme']: path.resolve(__dirname, 'src', 'theme'),
-  })(config);
-
-  return config;
-};
+  })
+);
