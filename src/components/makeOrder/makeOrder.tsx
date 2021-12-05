@@ -19,6 +19,7 @@ import { OrderModel } from '@src/utils/models/order.model';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
+  StyledButtonDiv,
   StyledMakeOrderWrapper,
   StyledTablesWrapper,
 } from './makeOrder.styled';
@@ -58,9 +59,9 @@ const MakeOrder: React.FC = () => {
     defaultValues,
   });
   function handleSubmitOrder() {
-    if (orderData.orderMenuItems.length !== 0) {
+    if (orderData.menuItems.length !== 0) {
       setOrder({
-        orderMenuItems: orderData.orderMenuItems,
+        menuItems: orderData.menuItems,
         orderPlaceToOrder:
           getValues().userAdressStreetName +
           '' +
@@ -114,8 +115,8 @@ const MakeOrder: React.FC = () => {
               <TableCell colSpan={4}></TableCell>
             </TableRow>
 
-            {orderData.orderMenuItems.length !== 0 ? (
-              orderData.orderMenuItems.map((item: MenuItemsModel) => {
+            {orderData.menuItems.length !== 0 ? (
+              orderData.menuItems.map((item: MenuItemsModel) => {
                 x++;
                 return (
                   <TableRow key={x} sx={{ margin: 'auto' }}>
@@ -223,27 +224,28 @@ const MakeOrder: React.FC = () => {
           </Table>
         </Box>
       </StyledTablesWrapper>
-      <Button
-        onClick={handleSubmitOrder}
-        sx={{
-          width: '20%',
-          fontSize: '2rem',
-          justifySelf: 'center',
-          marginTop: '20px',
-        }}
-      >
-        Złóż zamówienie
-      </Button>
-      {isSuccess ? (
-        <h2>Pomyślnie złozono zamówienie</h2>
-      ) : isError ? (
-        <h2>
-          Błąd w składaniu zamówienia <br />
-          {isError}
-        </h2>
-      ) : (
-        ''
-      )}
+      <StyledButtonDiv>
+        <Button
+          onClick={handleSubmitOrder}
+          sx={{
+            width: '20%',
+            fontSize: '2rem',
+            justifySelf: 'center',
+          }}
+        >
+          Złóż zamówienie
+        </Button>
+        {isSuccess ? (
+          <h2>Pomyślnie złozono zamówienie</h2>
+        ) : isError ? (
+          <h2>
+            Błąd w składaniu zamówienia <br />
+            {isError}
+          </h2>
+        ) : (
+          ''
+        )}
+      </StyledButtonDiv>
     </StyledMakeOrderWrapper>
   );
 };

@@ -2,10 +2,10 @@ import { PolishVariables } from '@src/utils/models/user.model';
 import styled from 'styled-components';
 
 export const StyledUserDataInputWrapper = styled.div`
-  height: 100%;
+  height: 90vh;
   width: 100%;
 
-  margin: auto;
+  margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(2, 50%);
   grid-template-rows: repeat(7, 1fr);

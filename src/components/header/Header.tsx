@@ -3,13 +3,13 @@ import { useAuth } from '@src/services/hooks/useAuth';
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import LoginModal from '../loginModal/LoginModal';
-import Box from '@mui/material/Box';
 import LoginIcon from '@mui/icons-material/Login';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import FastfoodIcon from '@mui/icons-material/Fastfood';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import PersonIcon from '@mui/icons-material/Person';
-import { AppBar, Toolbar } from '@mui/material';
+import { AppBar, Toolbar, Box } from '@mui/material';
 import {
   StyledIconWrapper,
   StyledIconsWrapper,
@@ -17,14 +17,13 @@ import {
   StyledIText,
 } from './Header.styled';
 import { Add } from '@mui/icons-material';
-import { useDispatch, useSelector } from 'react-redux';
-import api from '@src/utils/axios/axios.interceptor';
-import { setUserData } from '@src/store/userDataStore/userSlice';
+import { useSelector } from 'react-redux';
 import ShoppingCartModal from '../shoppingCartModal/ShoppingCartModal';
+import { AppState } from '@src/store';
+import { UserType } from '@src/utils/models/user.model';
 
 const Header: React.FC = () => {
-  const dispatch = useDispatch();
-  const userData = useSelector((state: any) => state.userData);
+  const userData = useSelector((state: AppState) => state.userData);
   const [isOpenLoginModal, setIsOpenLoginModal] = useState(false);
   const [isOpenShoppingCartModal, setIsOpenShoppingCartModal] = useState(false);
   const auth = useAuth();
@@ -39,14 +38,6 @@ const Header: React.FC = () => {
   useEffect(() => {
     document.addEventListener('click', handleDocumentClick);
     setIsOpenLoginModal(false);
-    api
-      .get('users/data')
-      .then((response) => {
-        dispatch(setUserData(response.data));
-      })
-      .catch((error) => {
-        console.log(error);
-      });
 
     return () => document.removeEventListener('click', handleDocumentClick);
     // eslint-disable-next-line
@@ -64,7 +55,7 @@ const Header: React.FC = () => {
               marginRight: '5%',
             }}
           >
-            <StyledLogo as={NavLink} exact to="/">
+            <StyledLogo as={NavLink} to="/">
               B
             </StyledLogo>
             <StyledIconsWrapper>
@@ -90,6 +81,15 @@ const Header: React.FC = () => {
                     <PersonIcon></PersonIcon>
                     <StyledIText>{userData.userName}</StyledIText>
                   </StyledIconWrapper>
+                  {userData.userType === UserType.ADMIN ||
+                  userData.userType === UserType.PERSONEL ? (
+                    <StyledIconWrapper as={NavLink} to="/admin">
+                      <AdminPanelSettingsIcon></AdminPanelSettingsIcon>
+                      <StyledIText>Panel administratora</StyledIText>
+                    </StyledIconWrapper>
+                  ) : (
+                    ''
+                  )}
                   <StyledIconWrapper
                     as={NavLink}
                     to="/"

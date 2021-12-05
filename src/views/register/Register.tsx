@@ -23,6 +23,7 @@ const Register: React.FC = () => {
   const [success, setSuccess] = useState('');
 
   const defaultValues: UserModel = {
+    id: undefined,
     userName: '',
     userLastName: '',
     userCity: '',
@@ -86,7 +87,34 @@ const Register: React.FC = () => {
           // eslint-disable-next-line
           Object.values(PolishVariables).map((item, i) => {
             if (index === i) {
-              return (
+              return item === PolishVariables.id ||
+                item === PolishVariables.userType ? null : item ===
+                PolishVariables.userUsername ? (
+                <StyledInputWrapper key={defaultValue} value={item}>
+                  <Controller
+                    name={defaultValue as UserVariablesNames}
+                    control={control}
+                    rules={{
+                      required: `Pole "${item.toLowerCase()}" jest wymagane`,
+                    }}
+                    render={({
+                      field: { onChange, value },
+                      fieldState: { error },
+                    }) => (
+                      <TextField
+                        onChange={onChange}
+                        value={value}
+                        label={item}
+                        sx={{ marginBottom: '0.7rem', width: '100%' }}
+                        error={!!error}
+                        helperText={error ? error.message : null}
+                        size="small"
+                        type={'text'}
+                      />
+                    )}
+                  />
+                </StyledInputWrapper>
+              ) : (
                 <StyledInputWrapper key={defaultValue} value={item}>
                   <Controller
                     name={defaultValue as UserVariablesNames}

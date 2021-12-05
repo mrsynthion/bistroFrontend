@@ -2,7 +2,7 @@ import api from '@src/utils/axios/axios.interceptor';
 import { useState, createContext } from 'react';
 import { useContext } from 'react';
 import { useDispatch } from 'react-redux';
-import { Redirect } from 'react-router';
+import { Navigate } from 'react-router';
 import { setUserData } from '@src/store/userDataStore/userSlice';
 const path = '/users';
 
@@ -33,7 +33,7 @@ export const AuthProvider = ({ children }: any) => {
     try {
       const response = await api.post(`${path}/logout`);
       if (response.status === 200) {
-        return <Redirect to="/" />;
+        return <Navigate to="/" />;
       }
     } catch (err: any) {
       if (err.message) {

@@ -53,7 +53,7 @@ const ShoppingCartModal: React.FC<Props> = ({ isOpen }) => {
           <TableRow>
             <TableCell>Łączna koszt:</TableCell>
             <TableCell>
-              {orderData.orderMenuItems.reduce(
+              {orderData.menuItems.reduce(
                 (acc, cur) => cur.menuItemPrice + acc,
                 0
               ) + 'zł'}
@@ -74,7 +74,7 @@ const ShoppingCartModal: React.FC<Props> = ({ isOpen }) => {
             alignContent: 'center',
           }}
         >
-          {orderData.orderMenuItems.map((item: MenuItemsModel) => {
+          {orderData.menuItems.map((item: MenuItemsModel) => {
             x++;
             return (
               <TableRow key={x} sx={{ margin: 'auto' }}>

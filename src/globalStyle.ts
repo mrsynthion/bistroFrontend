@@ -1,4 +1,4 @@
-import { createGlobalStyle } from "styled-components";
+import { createGlobalStyle } from 'styled-components';
 
 export default createGlobalStyle`
 :root{
@@ -13,6 +13,6 @@ body{
     padding:0;
     font-size: 16px;
     font-family:'Lora','Monaco',sans-serif;
+    background-color: #FFF9C4;
 }
-`
-
+`;

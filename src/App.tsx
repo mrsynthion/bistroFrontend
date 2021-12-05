@@ -1,16 +1,39 @@
-import { Redirect, Route, Switch } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import Root from './views/root/Root';
 import Header from './components/header/Header';
 import Register from './views/register/Register';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Paper } from '@mui/material';
 import MenuItems from './views/menuItems/MenuItems';
 import MakeOrder from './components/makeOrder/makeOrder';
 import UserDataView from './views/userData/UserData';
+import PrivateRoute from './components/privateRoute/PrivateRoute';
+import AdminPanel from './views/adminPanel/AdminPanel';
+import api from '@utils/axios/axios.interceptor';
+import { useEffect, useState } from 'react';
+import { setUserData } from './store/userDataStore/userSlice';
+import { UserModel, UserType } from './utils/models/user.model';
+import { AppState } from './store';
+import UserList from './views/userList/UserList';
+import OrderList from './views/orderList/OrderList';
 
 function App() {
-  const userData = useSelector((state: any) => state.userData);
-  return (
+  const dispatch = useDispatch();
+  const [userData, setLocalUserData] = useState<UserModel | null>();
+  const selectedUserData = useSelector((state: AppState) => state.userData);
+  useEffect(() => {
+    api
+      .get('users/data')
+      .then((response) => {
+        dispatch(setUserData(response.data));
+        setLocalUserData(response.data);
+      })
+      .catch((error) => {
+        setLocalUserData(null);
+        console.log(error);
+      });
+  }, []);
+  return userData === undefined ? null : (
     <>
       <Header />
 
@@ -18,24 +41,52 @@ function App() {
         component="main"
         sx={{
           minHeight: 'calc(100% - 60px)',
-          height: 'calc(100% - 60px)',
+          height: 'auto',
           width: '100%',
           position: 'absolute',
           top: '60px',
           backgroundColor: '#FFF9C4',
+          border: 'none',
+          boxShadow: 'none',
         }}
       >
-        <Switch>
-          <Route exact path="/" component={Root}></Route>
-          <Route exact path="/makeOrder" component={MakeOrder}></Route>
-          {userData.userName ? (
-            <Redirect exact path="/register" to="/" />
-          ) : (
-            <Route exact path="/register" component={Register} />
-          )}
-          <Route exact path="/menu" component={MenuItems} />
-          <Route exact path="/user" component={UserDataView} />
-        </Switch>
+        <Routes>
+          <Route path="/" element={<Root />}></Route>
+          <Route path="/makeOrder" element={<MakeOrder />}></Route>
+
+          <Route
+            path="/register"
+            element={
+              <PrivateRoute
+                auth={!userData?.userName || !selectedUserData.userUsername}
+              />
+            }
+          >
+            <Route path="" element={<Register />} />
+          </Route>
+
+          <Route path="/menu" element={<MenuItems />} />
+          <Route path="/user" element={<UserDataView />} />
+
+          <Route
+            path="/admin"
+            element={
+              <PrivateRoute
+                auth={
+                  userData?.userType === UserType.ADMIN ||
+                  userData?.userType === UserType.PERSONEL ||
+                  selectedUserData.userType === UserType.ADMIN ||
+                  selectedUserData.userType === UserType.PERSONEL
+                }
+              />
+            }
+          >
+            <Route path="" element={<AdminPanel />}>
+              <Route path="users" element={<UserList />} />
+              <Route path="orders" element={<OrderList />} />
+            </Route>
+          </Route>
+        </Routes>
       </Paper>
     </>
   );
