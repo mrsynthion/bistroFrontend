@@ -20,10 +20,64 @@ export const TableStory = GenericTableStory.bind({});
 
 TableStory.args = {
   columns: [
-    { name: 'id', isEmpty: false },
-    { name: 'id', isEmpty: false },
-    { name: 'id', isEmpty: false },
-    { name: 'id', isEmpty: false },
-    { name: 'id', isEmpty: false },
+    { name: 'id', isEmpty: true, key: 'id' },
+    { name: 'name', isEmpty: false, key: 'name' },
+    { name: 'last name', isEmpty: false, key: 'lastName' },
+    { name: 'age', isEmpty: false, key: 'age' },
+    { name: 'pesel', isEmpty: false, key: 'pesel' },
+  ],
+  rows: [
+    {
+      cell: [
+        {
+          value: 1,
+          key: 'id',
+        },
+        {
+          value: '12',
+          key: 'age',
+        },
+        {
+          value: 'jakiś',
+          key: 'lastName',
+        },
+        {
+          value: '123123123',
+          key: 'pesel',
+        },
+        {
+          value: 'Kuba',
+          key: 'name',
+        },
+      ],
+      name: 'object1',
+    },
+    {
+      cell: [
+        {
+          value: 2,
+          key: 'id',
+        },
+      ],
+      name: 'object2',
+    },
+    {
+      cell: [
+        {
+          value: 3,
+          key: 'id',
+        },
+      ],
+      name: 'object3',
+    },
+    {
+      cell: [
+        {
+          value: 4,
+          key: 'id',
+        },
+      ],
+      name: 'object4',
+    },
   ],
 };
