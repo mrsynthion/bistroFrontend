@@ -53,7 +53,7 @@ const Register: React.FC = () => {
           }
         })
         .catch((err) => {
-          setError(err.response.data.message);
+          setError(err?.response?.data?.message);
         });
     }
     // eslint-disable-next-line

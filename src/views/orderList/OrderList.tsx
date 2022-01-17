@@ -91,7 +91,9 @@ const OrderList: React.FC = () => {
                         Array.isArray(order[engVar]) ? (
                           //@ts-ignore
 
-                          <StyledTableWrapper key={order.id}>
+                          <StyledTableWrapper
+                            key={(order.id as number) * 5000000}
+                          >
                             <h2>
                               Zamówienie nr {order.id} z dnia{' '}
                               {new Date(
@@ -110,8 +112,8 @@ const OrderList: React.FC = () => {
                                 </TableRow>
                               </TableHead>
                               <TableBody>
-                                {order.menuItems.map((menuItem: any) => (
-                                  <TableRow key={(order.id as number) * 10000}>
+                                {order.menuItems.map((menuItem, ix) => (
+                                  <TableRow key={ix}>
                                     <TableCell>
                                       {menuItem.menuItemName}
                                     </TableCell>

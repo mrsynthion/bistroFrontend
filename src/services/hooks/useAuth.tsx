@@ -6,7 +6,7 @@ import { Navigate } from 'react-router';
 import { setUserData } from '@src/store/userDataStore/userSlice';
 const path = '/users';
 
-interface context {
+interface Context {
   loginError?: { message: string } | null;
   signIn: (login: string, password: string) => void;
   signOut: () => void;
@@ -25,6 +25,7 @@ export const AuthProvider = ({ children }: any) => {
       const userData = response.data;
       if (userData) {
         dispatch(setUserData(userData));
+        localStorage.setItem('logged', JSON.stringify(true));
       }
     } catch (catchError: any) {}
   };
@@ -33,6 +34,7 @@ export const AuthProvider = ({ children }: any) => {
     try {
       const response = await api.post(`${path}/logout`);
       if (response.status === 200) {
+        localStorage.removeItem('logged');
         return <Navigate to="/" />;
       }
     } catch (err: any) {
@@ -51,7 +53,7 @@ export const AuthProvider = ({ children }: any) => {
 };
 
 export const useAuth = () => {
-  const auth = useContext(AuthContext) as context;
+  const auth = useContext(AuthContext) as Context;
   if (!auth) {
     throw Error('useAuth need to be used inside AuthContext');
   }

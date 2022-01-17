@@ -19,11 +19,11 @@ import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 import { removeOrderMenuItem } from '@src/store/orderStore/orderSlice';
 import { AppState } from '@src/store';
 
-interface Props {
+export interface ShoppingCartProps {
   isOpen: boolean;
 }
 
-const ShoppingCartModal: React.FC<Props> = ({ isOpen }) => {
+const ShoppingCartModal: React.FC<ShoppingCartProps> = ({ isOpen }) => {
   let x = 0;
   const orderData: OrderModel = useSelector(
     (state: AppState) => state.orderData

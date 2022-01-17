@@ -22,16 +22,20 @@ function App() {
   const [userData, setLocalUserData] = useState<UserModel | null>();
   const selectedUserData = useSelector((state: AppState) => state.userData);
   useEffect(() => {
-    api
-      .get('users/data')
-      .then((response) => {
-        dispatch(setUserData(response.data));
-        setLocalUserData(response.data);
-      })
-      .catch((error) => {
-        setLocalUserData(null);
-        console.log(error);
-      });
+    if (localStorage.getItem('logged')) {
+      api
+        .get('users/data')
+        .then((response) => {
+          dispatch(setUserData(response.data));
+          setLocalUserData(response.data);
+        })
+        .catch((error) => {
+          setLocalUserData(null);
+          console.log(error);
+        });
+    } else {
+      setLocalUserData(null);
+    }
   }, []);
   return userData === undefined ? null : (
     <>
