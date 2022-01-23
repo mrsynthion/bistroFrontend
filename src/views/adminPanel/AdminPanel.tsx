@@ -40,7 +40,7 @@ const AdminPanel: React.FC = () => {
             <StyledIconsWrapper>
               <StyledIconWrapper as={NavLink} to="/admin/users">
                 <GroupIcon />
-                <StyledIText>Lista użytkownika</StyledIText>
+                <StyledIText>Lista użytkowników</StyledIText>
               </StyledIconWrapper>
               <StyledIconWrapper as={NavLink} to="/admin/orders">
                 <ReorderIcon />

@@ -8,19 +8,25 @@ import {
 import React from 'react';
 import { StyledTableWrapper } from './Table.styled';
 
-export interface GenericTableProps {
-  columns: {
-    name: string;
-    isEmpty: boolean;
-    key: string;
-  }[];
-  rows: {
-    cell: { value: string | number; key: string }[];
-    name: string;
-  }[];
+interface GenericTableProps {
+  columns: GenericTableColumns[];
+  tableRows: GenericTableRows[];
+}
+interface GenericTableColumns {
+  name: string;
+  isEmpty: boolean;
+  key: string;
+}
+interface GenericTableRows {
+  name: string;
+  cells: Cell[];
+}
+interface Cell {
+  value: string | number;
+  key: string;
 }
 
-const GenericTable: React.FC<GenericTableProps> = ({ columns, rows }) => {
+const GenericTable: React.FC<GenericTableProps> = ({ columns, tableRows }) => {
   return (
     <StyledTableWrapper>
       <Table>
@@ -38,10 +44,10 @@ const GenericTable: React.FC<GenericTableProps> = ({ columns, rows }) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
+          {tableRows?.map((row) => (
             <TableRow key={row.name}>
-              {columns.map((column) =>
-                row.cell.map((cell) => {
+              {columns?.map((column) =>
+                row.cells?.map((cell) => {
                   if (column.key === cell.key) {
                     return (
                       <TableCell key={cell.value + cell.key} variant="body">

@@ -9,7 +9,6 @@ import {
   EnglishVariables,
   PolishVariables,
   UserModel,
-  UserVariablesNames,
 } from '@src/utils/models/user.model';
 import { Divider } from '@mui/material';
 
@@ -21,42 +20,10 @@ const UserList: React.FC = () => {
       .then((res) => setUsers(res.data))
       .catch((e) => console.log(e));
   }, []);
+
   return (
     <StyledUserListWrapper>
-      {users &&
-        users.map((user) => (
-          <StyledUserColumn key={user.id}>
-            <StyledUserColumn>
-              {Object.keys(EnglishVariables).map((variable, i) =>
-                Object.values(PolishVariables).map((item, index) => {
-                  if (
-                    i === index &&
-                    variable !== EnglishVariables.id &&
-                    variable !== EnglishVariables.userPassword
-                  ) {
-                    return (
-                      <StyledUserRow key={variable}>
-                        <h4 style={{ color: 'grey' }}>{item}</h4>
-                        <h4>
-                          {
-                            //@ts-ignore
-                            user[variable]
-                          }
-                        </h4>
-                      </StyledUserRow>
-                    );
-                  }
-                })
-              )}
-            </StyledUserColumn>
-            <Divider
-              orientation="horizontal"
-              flexItem
-              variant="middle"
-              sx={{ width: '100%' }}
-            />
-          </StyledUserColumn>
-        ))}
+      {users && users.map((user) => <h1>{user.userName}</h1>)}
     </StyledUserListWrapper>
   );
 };

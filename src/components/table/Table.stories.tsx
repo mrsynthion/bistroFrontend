@@ -26,9 +26,9 @@ TableStory.args = {
     { name: 'age', isEmpty: false, key: 'age' },
     { name: 'pesel', isEmpty: false, key: 'pesel' },
   ],
-  rows: [
+  tableRows: [
     {
-      cell: [
+      cells: [
         {
           value: 1,
           key: 'id',
@@ -53,7 +53,7 @@ TableStory.args = {
       name: 'object1',
     },
     {
-      cell: [
+      cells: [
         {
           value: 2,
           key: 'id',
@@ -62,7 +62,7 @@ TableStory.args = {
       name: 'object2',
     },
     {
-      cell: [
+      cells: [
         {
           value: 3,
           key: 'id',
@@ -71,7 +71,7 @@ TableStory.args = {
       name: 'object3',
     },
     {
-      cell: [
+      cells: [
         {
           value: 4,
           key: 'id',
