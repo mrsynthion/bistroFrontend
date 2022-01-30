@@ -29,7 +29,7 @@ import { setUserData } from '@src/store/userDataStore/userSlice';
 
 const UserDataView: React.FC = () => {
   const defaultValues: UserModel = {
-    id: undefined,
+    id: 0,
     userName: '',
     userLastName: '',
     userCity: '',
@@ -52,8 +52,6 @@ const UserDataView: React.FC = () => {
   });
 
   const onSubmit = (data: UserModel) => {
-    console.log(data);
-
     setFormData(data);
   };
   useEffect(() => {
@@ -113,7 +111,6 @@ const UserDataView: React.FC = () => {
               // eslint-disable-next-line
               Object.values(PolishVariables).map((item, i) => {
                 if (index === i) {
-                  console.log(defaultValue, item);
                   return item === PolishVariables.id ||
                     item === PolishVariables.userType ? null : item ===
                     PolishVariables.userUsername ? (
@@ -228,8 +225,8 @@ const UserDataView: React.FC = () => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {item.menuItems.map((menuItem: any) => (
-                    <TableRow>
+                  {item.menuItems.map((menuItem: any, index: number) => (
+                    <TableRow key={index}>
                       <TableCell>{menuItem.menuItemName}</TableCell>
                       <TableCell>{menuItem.menuItemCategory}</TableCell>
                       <TableCell>{menuItem.menuItemDescription}</TableCell>

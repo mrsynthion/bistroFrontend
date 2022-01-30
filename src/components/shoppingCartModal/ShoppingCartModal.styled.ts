@@ -5,7 +5,7 @@ export const StyledShoppingCartModalWrapper = styled.div<{ isOpen: boolean }>`
   width: min(500%, 500px);
   height: 300px;
   background-color: #eeca00;
-  z-index: 99;
+  z-index: 9999;
   display: ${({ isOpen }) => (isOpen ? 'flex' : 'none')};
   position: absolute;
   top: 85%;

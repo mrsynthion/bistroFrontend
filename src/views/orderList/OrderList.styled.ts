@@ -1,3 +1,4 @@
+import { IconButton } from '@mui/material';
 import styled from 'styled-components';
 
 export const StyledOrderListWrapper = styled.div`
@@ -7,7 +8,7 @@ export const StyledOrderListWrapper = styled.div`
   height: auto;
   overflow: scroll;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  text-align: center;
   grid-template-rows: auto;
 `;
 
@@ -25,4 +26,9 @@ export const StyledLineWrapper = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+`;
+
+export const StyledIconButton = styled(IconButton)`
+  text-decoration: none;
+  height: 100%;
 `;

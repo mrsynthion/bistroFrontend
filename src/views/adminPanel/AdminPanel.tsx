@@ -19,13 +19,18 @@ const StyledH1 = styled.h1`
 `;
 const AdminPanel: React.FC = () => {
   const location = useLocation();
-  console.log(location);
+
   return (
     <StyledAdminPanelWrapper>
       <Box sx={{ flexGrow: 1 }}>
         <AppBar
           position="fixed"
-          sx={{ maxHeight: '60px', top: '60px', backgroundColor: '#ffb74d' }}
+          sx={{
+            maxHeight: '60px',
+            top: '60px',
+            backgroundColor: '#ffb74d',
+            zIndex: '99',
+          }}
         >
           <Toolbar
             sx={{
@@ -38,13 +43,17 @@ const AdminPanel: React.FC = () => {
             }}
           >
             <StyledIconsWrapper>
-              <StyledIconWrapper as={NavLink} to="/admin/users">
-                <GroupIcon />
-                <StyledIText>Lista użytkowników</StyledIText>
+              <StyledIconWrapper isCursorPointer>
+                <NavLink to="/admin/users">
+                  <GroupIcon />
+                  <StyledIText>Lista użytkowników</StyledIText>
+                </NavLink>
               </StyledIconWrapper>
-              <StyledIconWrapper as={NavLink} to="/admin/orders">
-                <ReorderIcon />
-                <StyledIText>Obsługa zamówień</StyledIText>
+              <StyledIconWrapper isCursorPointer>
+                <NavLink to="/admin/orders">
+                  <ReorderIcon />
+                  <StyledIText>Obsługa zamówień</StyledIText>
+                </NavLink>
               </StyledIconWrapper>
             </StyledIconsWrapper>
           </Toolbar>

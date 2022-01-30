@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { OrderModel } from '@src/utils/models/order.model';
 
 const initialOrderState: OrderModel = {
-  id: undefined,
+  id: 0,
   orderUserId: null,
   orderIsAccepted: false,
   orderIsSent: false,
@@ -23,9 +23,9 @@ export const orderSlice = createSlice({
     addOrderMenuItem(state: any, action) {
       return {
         ...state,
-        orderMenuItems: [
-          ...state.orderMenuItems,
-          { ...action.payload, index: state.orderMenuItems.length },
+        menuItems: [
+          ...state.menuItems,
+          { ...action.payload, index: state.menuItems.length },
         ],
         orderTotalPrice: state.orderTotalPrice + action.payload.menuItemPrice,
       };
@@ -33,7 +33,7 @@ export const orderSlice = createSlice({
     removeOrderMenuItem(state, action) {
       return {
         ...state,
-        orderMenuItems: state.menuItems.filter(
+        menuItems: state?.menuItems?.filter(
           (item: any) => item.index !== action.payload.index
         ),
       };

@@ -1,10 +1,11 @@
-import { Button, TextField } from '@mui/material';
+import { Button, MenuItem, Select, TextField } from '@mui/material';
 import { Box } from '@mui/system';
 import api from '@utils/axios/axios.interceptor';
 import {
   UserVariablesNames,
   PolishVariables,
   UserModel,
+  UserType,
 } from '@src/utils/models/user.model';
 import React, { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
@@ -16,14 +17,14 @@ import {
 import { useDispatch } from 'react-redux';
 import { setUserData } from '@src/store/userDataStore/userSlice';
 
-const Register: React.FC = () => {
+const Register: React.FC<{ isAdminPanel: boolean }> = ({ isAdminPanel }) => {
   const dispatch = useDispatch();
   const [formData, setFormData] = useState<UserModel>();
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
   const defaultValues: UserModel = {
-    id: undefined,
+    id: 0,
     userName: '',
     userLastName: '',
     userCity: '',
@@ -33,6 +34,7 @@ const Register: React.FC = () => {
     userPhoneNumber: '',
     userUsername: '',
     userPassword: '',
+    userType: UserType.USER,
   };
   const { control, handleSubmit, reset } = useForm({ defaultValues });
 
@@ -46,7 +48,6 @@ const Register: React.FC = () => {
           ...formData,
         })
         .then((res: any) => {
-          console.log(res);
           if (res.status === 201) {
             setSuccess('Konto zostało utworzone');
             dispatch(setUserData(res.data));
@@ -147,7 +148,30 @@ const Register: React.FC = () => {
             }
           })
         )}
-
+        {isAdminPanel ? (
+          <StyledInputWrapper value={PolishVariables.userPassword}>
+            <Controller
+              name={'userType'}
+              control={control}
+              render={({ field: { onChange, value } }) => (
+                <Select
+                  onChange={onChange}
+                  labelId="userType"
+                  id="userType"
+                  value={value}
+                  label="Typ uzytkownika"
+                  sx={{ width: '100%' }}
+                >
+                  {Object.values(UserType).map((userType) => (
+                    <MenuItem value={userType}>{userType}</MenuItem>
+                  ))}
+                </Select>
+              )}
+            />
+          </StyledInputWrapper>
+        ) : (
+          <></>
+        )}
         <Button
           onClick={handleSubmit(onSubmit)}
           variant={'contained'}

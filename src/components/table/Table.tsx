@@ -8,20 +8,20 @@ import {
 import React from 'react';
 import { StyledTableWrapper } from './Table.styled';
 
-interface GenericTableProps {
+export interface GenericTableProps {
   columns: GenericTableColumns[];
   tableRows: GenericTableRows[];
 }
-interface GenericTableColumns {
+export interface GenericTableColumns {
   name: string;
   isEmpty: boolean;
   key: string;
 }
-interface GenericTableRows {
-  name: string;
-  cells: Cell[];
+export interface GenericTableRows {
+  name: string | number;
+  cells: GenericTableCell[];
 }
-interface Cell {
+export interface GenericTableCell {
   value: string | number;
   key: string;
 }
@@ -44,16 +44,53 @@ const GenericTable: React.FC<GenericTableProps> = ({ columns, tableRows }) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {tableRows?.map((row) => (
-            <TableRow key={row.name}>
+          {tableRows?.map((row, index) => (
+            <TableRow key={index}>
               {columns?.map((column) =>
                 row.cells?.map((cell) => {
                   if (column.key === cell.key) {
-                    return (
-                      <TableCell key={cell.value + cell.key} variant="body">
-                        {cell.value}
-                      </TableCell>
-                    );
+                    switch (typeof cell.value) {
+                      case 'string': {
+                        return (
+                          <TableCell
+                            key={index + cell.value + cell.key}
+                            variant="body"
+                          >
+                            {cell.value ? cell.value : ''}
+                          </TableCell>
+                        );
+                      }
+                      case 'boolean': {
+                        return (
+                          <TableCell
+                            key={index + cell.value + cell.key}
+                            variant="body"
+                          >
+                            {cell.value ? 'Tak' : 'Nie'}
+                          </TableCell>
+                        );
+                      }
+                      case 'number': {
+                        return (
+                          <TableCell
+                            key={index + cell.value + cell.key}
+                            variant="body"
+                          >
+                            {cell.value ? cell.value : '0'}
+                          </TableCell>
+                        );
+                      }
+                      default: {
+                        return (
+                          <TableCell
+                            key={index + cell.value + cell.key}
+                            variant="body"
+                          >
+                            {cell.value}
+                          </TableCell>
+                        );
+                      }
+                    }
                   }
                 })
               )}

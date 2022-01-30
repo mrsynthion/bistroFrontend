@@ -5,10 +5,7 @@ export const StyledUserListWrapper = styled.div`
   top: 120px;
   width: 100%;
   height: auto;
-  display: grid;
-  grid-template-rows: auto;
-  grid-template-columns: 1fr 1fr 1fr;
-  padding: 0 5%;
+  margin: auto;
 `;
 
 export const StyledUserRow = styled.div`

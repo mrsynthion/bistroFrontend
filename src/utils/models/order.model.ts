@@ -2,7 +2,7 @@ import { MenuItemsModel } from './menuItems.model';
 
 export interface OrderModel {
   menuItems: Array<MenuItemsModel>;
-  id?: number;
+  id: number;
   orderTotalPrice: number;
   orderPlaceToOrder: string;
   orderIsSent: boolean;
@@ -28,13 +28,14 @@ export enum EnglishOrderVariables {
 }
 
 export enum PolishOrderVariables {
+  id = 'Id',
   menuItems = 'Lista ',
-  orderUserId = 'Id',
+  orderUserId = 'Id uzytkownika',
   orderUserName = 'Imię',
   orderUserLastName = 'Nazwisko',
   orderUserPhoneNumber = 'Numer telefonu',
-  orderTotalPrice = 'Cena',
-  orderPlaceToOrder = 'Adress',
+  orderTotalPrice = 'Łączny koszt',
+  orderPlaceToOrder = 'Adres',
   orderIsAccepted = 'Zaakceptowane',
-  orderIsSent = 'Wysłane?',
+  orderIsSent = 'Wysłane',
 }

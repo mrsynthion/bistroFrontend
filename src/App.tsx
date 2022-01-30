@@ -16,6 +16,8 @@ import { UserModel, UserType } from './utils/models/user.model';
 import { AppState } from './store';
 import UserList from './views/userList/UserList';
 import OrderList from './views/orderList/OrderList';
+import OrderDetails from './components/orderDetails/OrderDetails';
+import TablesView from './views/tables/Tables';
 
 function App() {
   const dispatch = useDispatch();
@@ -31,7 +33,6 @@ function App() {
         })
         .catch((error) => {
           setLocalUserData(null);
-          console.log(error);
         });
     } else {
       setLocalUserData(null);
@@ -66,10 +67,11 @@ function App() {
               />
             }
           >
-            <Route path="" element={<Register />} />
+            <Route path="" element={<Register isAdminPanel={false} />} />
           </Route>
 
           <Route path="/menu" element={<MenuItems />} />
+          <Route path="/tables" element={<TablesView />} />
           <Route path="/user" element={<UserDataView />} />
 
           <Route
@@ -88,6 +90,11 @@ function App() {
             <Route path="" element={<AdminPanel />}>
               <Route path="users" element={<UserList />} />
               <Route path="orders" element={<OrderList />} />
+              <Route path="order/:id" element={<OrderDetails />} />
+              <Route
+                path="users/newUser"
+                element={<Register isAdminPanel={true} />}
+              />
             </Route>
           </Route>
         </Routes>

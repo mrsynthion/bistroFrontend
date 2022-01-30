@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import {
-  StyledUserColumn,
-  StyledUserListWrapper,
-  StyledUserRow,
-} from './UserList.styled';
+import { StyledUserListWrapper } from './UserList.styled';
 import api from '@utils/axios/axios.interceptor';
+import { PolishVariables, UserModel } from '@src/utils/models/user.model';
+import GenericTable, {
+  GenericTableColumns,
+  GenericTableRows,
+} from '@src/components/table/Table';
 import {
-  EnglishVariables,
-  PolishVariables,
-  UserModel,
-} from '@src/utils/models/user.model';
-import { Divider } from '@mui/material';
+  TranslateObjectColumns,
+  TranslateObjectRows,
+} from '@src/utils/genericTableObjectFunc/GenericTableObjectFunc';
 
 const UserList: React.FC = () => {
   const [users, setUsers] = useState<UserModel[]>([]);
@@ -21,9 +20,14 @@ const UserList: React.FC = () => {
       .catch((e) => console.log(e));
   }, []);
 
+  const columns: GenericTableColumns[] =
+    TranslateObjectColumns(PolishVariables);
+
+  const rows: GenericTableRows[] = TranslateObjectRows(users);
+
   return (
     <StyledUserListWrapper>
-      {users && users.map((user) => <h1>{user.userName}</h1>)}
+      <GenericTable columns={columns} tableRows={rows}></GenericTable>
     </StyledUserListWrapper>
   );
 };

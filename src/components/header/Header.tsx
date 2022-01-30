@@ -10,6 +10,7 @@ import FastfoodIcon from '@mui/icons-material/Fastfood';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import PersonIcon from '@mui/icons-material/Person';
 import { AppBar, Toolbar, Box } from '@mui/material';
+import EventSeatIcon from '@mui/icons-material/EventSeat';
 import {
   StyledIconWrapper,
   StyledIconsWrapper,
@@ -59,61 +60,78 @@ const Header: React.FC = () => {
               B
             </StyledLogo>
             <StyledIconsWrapper>
-              <StyledIconWrapper as={NavLink} to="/menu">
-                <FastfoodIcon></FastfoodIcon>
-                <StyledIText>Menu</StyledIText>
+              <StyledIconWrapper isCursorPointer>
+                <NavLink to="/menu">
+                  <FastfoodIcon></FastfoodIcon>
+                  <StyledIText>Menu</StyledIText>
+                </NavLink>
               </StyledIconWrapper>
-
+              <StyledIconWrapper isCursorPointer>
+                <NavLink to="/tables">
+                  <EventSeatIcon></EventSeatIcon>
+                  <StyledIText>Rezerwacja miejsc</StyledIText>
+                </NavLink>
+              </StyledIconWrapper>
               {userData.userName ? (
                 <>
                   <StyledIconWrapper
                     id="shoppingCartButton"
                     onMouseOver={() => setIsOpenShoppingCartModal(true)}
                     onMouseLeave={() => setIsOpenShoppingCartModal(false)}
-                    as={NavLink}
-                    to="/makeOrder"
+                    isCursorPointer
                   >
-                    <ShoppingCartIcon></ShoppingCartIcon>
-                    <StyledIText>Koszyk</StyledIText>
+                    <NavLink to="/makeOrder">
+                      <ShoppingCartIcon></ShoppingCartIcon>
+                      <StyledIText>Koszyk</StyledIText>
+                    </NavLink>
+
                     <ShoppingCartModal isOpen={isOpenShoppingCartModal} />
                   </StyledIconWrapper>
-                  <StyledIconWrapper as={NavLink} to="/user">
-                    <PersonIcon></PersonIcon>
-                    <StyledIText>{userData.userName}</StyledIText>
+                  <StyledIconWrapper isCursorPointer={true}>
+                    <NavLink to="/user">
+                      <PersonIcon></PersonIcon>
+                      <StyledIText>{userData.userName}</StyledIText>
+                    </NavLink>
                   </StyledIconWrapper>
                   {userData.userType === UserType.ADMIN ||
                   userData.userType === UserType.PERSONEL ? (
-                    <StyledIconWrapper as={NavLink} to="/admin">
-                      <AdminPanelSettingsIcon></AdminPanelSettingsIcon>
-                      <StyledIText>Panel administratora</StyledIText>
+                    <StyledIconWrapper isCursorPointer={true}>
+                      <NavLink to="/admin">
+                        <AdminPanelSettingsIcon></AdminPanelSettingsIcon>
+                        <StyledIText>Panel administratora</StyledIText>
+                      </NavLink>
                     </StyledIconWrapper>
                   ) : (
                     ''
                   )}
                   <StyledIconWrapper
-                    as={NavLink}
-                    to="/"
                     onClick={() => auth.signOut()}
+                    isCursorPointer
                   >
-                    <ExitToAppIcon></ExitToAppIcon>
-                    <StyledIText>Wyloguj się</StyledIText>
+                    <NavLink to="/">
+                      <ExitToAppIcon></ExitToAppIcon>
+                      <StyledIText>Wyloguj się</StyledIText>
+                    </NavLink>
                   </StyledIconWrapper>
                 </>
               ) : (
                 <>
                   <StyledIconWrapper
+                    isCursorPointer
                     id="shoppingCartButton"
                     onMouseOver={() => setIsOpenShoppingCartModal(true)}
                     onMouseLeave={() => setIsOpenShoppingCartModal(false)}
-                    as={NavLink}
-                    to="/makeOrder"
                   >
-                    <ShoppingCartIcon></ShoppingCartIcon>
-                    <StyledIText>Koszyk</StyledIText>
+                    <NavLink to="/makeOrder">
+                      <ShoppingCartIcon></ShoppingCartIcon>
+                      <StyledIText>Koszyk</StyledIText>
+                    </NavLink>
+
                     <ShoppingCartModal isOpen={isOpenShoppingCartModal} />
                   </StyledIconWrapper>
 
                   <StyledIconWrapper
+                    isCursorPointer
                     id="loginButton"
                     onMouseOver={() => setIsOpenLoginModal(true)}
                     onMouseLeave={() => setIsOpenLoginModal(false)}
@@ -122,9 +140,11 @@ const Header: React.FC = () => {
                     <StyledIText id="loginButton">Zaloguj się</StyledIText>
                     <LoginModal isOpen={isOpenLoginModal} />
                   </StyledIconWrapper>
-                  <StyledIconWrapper as={NavLink} to="/register">
-                    <Add></Add>
-                    <StyledIText>Zarejestruj się</StyledIText>
+                  <StyledIconWrapper isCursorPointer>
+                    <NavLink to="/register">
+                      <Add></Add>
+                      <StyledIText>Zarejestruj się</StyledIText>
+                    </NavLink>
                   </StyledIconWrapper>
                 </>
               )}

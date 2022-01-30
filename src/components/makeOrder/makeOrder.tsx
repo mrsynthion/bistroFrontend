@@ -45,6 +45,7 @@ const MakeOrder: React.FC = () => {
   );
   const userData: UserModel = useSelector((state: AppState) => state.userData);
   const defaultValues: UserModel = {
+    id: 0,
     userName: '',
     userLastName: '',
     userCity: '',
@@ -59,14 +60,14 @@ const MakeOrder: React.FC = () => {
     defaultValues,
   });
   function handleSubmitOrder() {
-    if (orderData.menuItems.length !== 0) {
+    if (orderData?.menuItems?.length !== 0) {
       setOrder({
         menuItems: orderData.menuItems,
         orderPlaceToOrder:
           getValues().userAdressStreetName +
-          '' +
+          ' ' +
           getValues().userAdressStreetNumber +
-          '' +
+          ' ' +
           getValues().userAdressHomeNumber,
         orderTotalPrice: orderData.orderTotalPrice,
         orderUserName: getValues().userName || '',
@@ -115,8 +116,8 @@ const MakeOrder: React.FC = () => {
               <TableCell colSpan={4}></TableCell>
             </TableRow>
 
-            {orderData.menuItems.length !== 0 ? (
-              orderData.menuItems.map((item: MenuItemsModel) => {
+            {orderData?.menuItems?.length !== 0 ? (
+              orderData?.menuItems?.map((item: MenuItemsModel) => {
                 x++;
                 return (
                   <TableRow key={x} sx={{ margin: 'auto' }}>

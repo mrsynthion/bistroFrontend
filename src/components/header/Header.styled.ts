@@ -27,19 +27,23 @@ export const StyledIconsWrapper = styled.div`
     max-width: 50%;
   }
 `;
-export const StyledIconWrapper = styled.div<{ isPointer?: boolean }>`
+export const StyledIconWrapper = styled.div<{ isCursorPointer?: boolean }>`
   color: rgba(0, 0, 0, 0.54);
   text-decoration: none;
-  height: 100%;
+  height: 80%;
   width: max-content;
-  cursor: ${({ isPointer }) => (isPointer ? 'pointer' : 'default')};
+  cursor: ${({ isCursorPointer }) => (isCursorPointer ? 'pointer' : 'default')};
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
   margin-left: 10px;
-  cursor: pointer;
+
+  a {
+    text-decoration: none;
+    color: rgba(0, 0, 0, 0.54);
+  }
   svg {
     font-size: 2rem;
     text-decoration: none;

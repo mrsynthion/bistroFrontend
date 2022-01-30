@@ -3,9 +3,7 @@ import { Navigate, Outlet, useLocation } from 'react-router-dom';
 
 const PrivateRoute = ({ auth }: { auth: any }) => {
   const location = useLocation();
-  useEffect(() => {
-    console.log(auth);
-  }, [auth]);
+  useEffect(() => {}, [auth]);
   return auth ? (
     <Outlet />
   ) : (
