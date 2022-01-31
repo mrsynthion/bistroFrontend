@@ -10,6 +10,7 @@ import { Outlet, useLocation } from 'react-router';
 import { StyledAdminPanelWrapper } from './AdminPanel.styled';
 import GroupIcon from '@mui/icons-material/Group';
 import ReorderIcon from '@mui/icons-material/Reorder';
+import TableRestaurantIcon from '@mui/icons-material/TableRestaurant';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -53,6 +54,12 @@ const AdminPanel: React.FC = () => {
                 <NavLink to="/admin/orders">
                   <ReorderIcon />
                   <StyledIText>Obsługa zamówień</StyledIText>
+                </NavLink>
+              </StyledIconWrapper>
+              <StyledIconWrapper isCursorPointer>
+                <NavLink to="/admin/booking">
+                  <TableRestaurantIcon />
+                  <StyledIText>Rezerwacje miejsc</StyledIText>
                 </NavLink>
               </StyledIconWrapper>
             </StyledIconsWrapper>

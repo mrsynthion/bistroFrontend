@@ -18,6 +18,8 @@ import UserList from './views/userList/UserList';
 import OrderList from './views/orderList/OrderList';
 import OrderDetails from './components/orderDetails/OrderDetails';
 import TablesView from './views/tables/Tables';
+import RestaurantTableView from './views/tableView/TableView';
+import Booking from './views/booking/Booking';
 
 function App() {
   const dispatch = useDispatch();
@@ -71,7 +73,8 @@ function App() {
           </Route>
 
           <Route path="/menu" element={<MenuItems />} />
-          <Route path="/tables" element={<TablesView />} />
+          <Route path="/tables" element={<TablesView />}></Route>
+          <Route path="/tables/:id" element={<RestaurantTableView />}></Route>
           <Route path="/user" element={<UserDataView />} />
 
           <Route
@@ -90,6 +93,8 @@ function App() {
             <Route path="" element={<AdminPanel />}>
               <Route path="users" element={<UserList />} />
               <Route path="orders" element={<OrderList />} />
+              <Route path="booking" element={<TablesView />} />
+              <Route path="booking/:id" element={<Booking />} />
               <Route path="order/:id" element={<OrderDetails />} />
               <Route
                 path="users/newUser"

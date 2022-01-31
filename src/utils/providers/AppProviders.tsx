@@ -10,6 +10,8 @@ import {
   createTheme,
   ThemeProvider as MuiThemeProvider,
 } from '@mui/material/styles';
+import { LocalizationProvider } from '@mui/lab';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
 
 export const themeOptions = {
   palette: {
@@ -32,7 +34,9 @@ const AppProviders: React.FC = ({ children }) => {
           <AuthProvider>
             <GlobalStyle />
             <MuiThemeProvider theme={muiTheme}>
-              <Router>{children}</Router>
+              <LocalizationProvider dateAdapter={AdapterDateFns}>
+                <Router>{children}</Router>
+              </LocalizationProvider>
             </MuiThemeProvider>
           </AuthProvider>
         </ThemeProvider>
