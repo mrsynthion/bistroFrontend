@@ -63,9 +63,9 @@ const Register: React.FC<{ isAdminPanel: boolean }> = ({ isAdminPanel }) => {
   return (
     <Box
       sx={{
-        height: '60%',
+        height: '100%',
         width: '50%',
-        margin: '15% auto 0',
+        margin: '5% auto 0',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',

@@ -220,8 +220,8 @@ const UserDataView: React.FC = () => {
                     <TableCell>Kategoria</TableCell>
                     <TableCell>Skład</TableCell>
                     <TableCell>Cena</TableCell>
-                    <TableCell>Przyjęte?</TableCell>
-                    <TableCell>Dostarczone?</TableCell>
+                    <TableCell>Przyjęte</TableCell>
+                    <TableCell>Wysłane</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>

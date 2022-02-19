@@ -51,7 +51,7 @@ const ShoppingCartModal: React.FC<ShoppingCartProps> = ({ isOpen }) => {
           }}
         >
           <TableRow>
-            <TableCell>Łączna koszt:</TableCell>
+            <TableCell>Łączny koszt:</TableCell>
             <TableCell>
               {orderData?.menuItems?.reduce(
                 (acc, cur) => cur.menuItemPrice + acc,

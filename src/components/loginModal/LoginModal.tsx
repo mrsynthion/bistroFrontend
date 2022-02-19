@@ -37,7 +37,6 @@ const LoginModal: React.FC<{
     if (userUsername && userPassword) {
       auth.signIn(userUsername, userPassword);
     }
-    // eslint-disable-next-line
   }, [formData]);
 
   return (
@@ -63,7 +62,7 @@ const LoginModal: React.FC<{
             <TextField
               onChange={onChange}
               value={value}
-              label={'Nazwa uzytkownika'}
+              label={'Nazwa użytkownika'}
               sx={{ marginBottom: '0.7rem' }}
               error={!!error}
               helperText={error ? error.message : null}
@@ -91,7 +90,7 @@ const LoginModal: React.FC<{
         />
         <StyledButtonWrapper>
           <Button onClick={handleSubmit(onSubmit)} variant={'contained'}>
-            Submit
+            Zaloguj się
           </Button>
           <Button onClick={() => reset()} variant={'contained'}>
             Reset

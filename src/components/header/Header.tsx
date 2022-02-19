@@ -137,7 +137,7 @@ const Header: React.FC = () => {
                     onMouseLeave={() => setIsOpenLoginModal(false)}
                   >
                     <LoginIcon id="loginButton"></LoginIcon>
-                    <StyledIText id="loginButton">Zaloguj się</StyledIText>
+                    <StyledIText id="loginButton">Logowanie</StyledIText>
                     <LoginModal isOpen={isOpenLoginModal} />
                   </StyledIconWrapper>
                   <StyledIconWrapper isCursorPointer>

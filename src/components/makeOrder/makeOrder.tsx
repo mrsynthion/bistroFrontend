@@ -181,40 +181,45 @@ const MakeOrder: React.FC = () => {
                         (!userData.id && PolishVariables.userUsername === item)
                       )
                     ) {
-                      return (
-                        <TableRow key={i} sx={{ width: '100%' }}>
-                          <TableCell>
-                            <StyledInputWrapper key={defaultValue} value={item}>
-                              <Controller
-                                name={defaultValue as UserVariablesNames}
-                                control={control}
-                                rules={{
-                                  required: `Pole "${item.toLowerCase()}" jest wymagane`,
-                                }}
-                                render={({
-                                  field: { onChange, value },
-                                  fieldState: { error },
-                                }) => (
-                                  <TextField
-                                    onChange={onChange}
-                                    value={value}
-                                    label={item}
-                                    focused={!!userData.id}
-                                    sx={{
-                                      marginBottom: '0.7rem',
-                                      width: '100%',
-                                    }}
-                                    error={!!error}
-                                    helperText={error ? error.message : null}
-                                    size="small"
-                                    type={'text'}
-                                  />
-                                )}
-                              />
-                            </StyledInputWrapper>
-                          </TableCell>
-                        </TableRow>
-                      );
+                      if (item !== PolishVariables.id) {
+                        return (
+                          <TableRow key={i} sx={{ width: '100%' }}>
+                            <TableCell>
+                              <StyledInputWrapper
+                                key={defaultValue}
+                                value={item}
+                              >
+                                <Controller
+                                  name={defaultValue as UserVariablesNames}
+                                  control={control}
+                                  rules={{
+                                    required: `Pole "${item.toLowerCase()}" jest wymagane`,
+                                  }}
+                                  render={({
+                                    field: { onChange, value },
+                                    fieldState: { error },
+                                  }) => (
+                                    <TextField
+                                      onChange={onChange}
+                                      value={value}
+                                      label={item}
+                                      focused={!!userData.id}
+                                      sx={{
+                                        marginBottom: '0.7rem',
+                                        width: '100%',
+                                      }}
+                                      error={!!error}
+                                      helperText={error ? error.message : null}
+                                      size="small"
+                                      type={'text'}
+                                    />
+                                  )}
+                                />
+                              </StyledInputWrapper>
+                            </TableCell>
+                          </TableRow>
+                        );
+                      }
                     }
                   }
                 })
